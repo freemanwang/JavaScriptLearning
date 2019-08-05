@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var str =  'http://www.baidu.com?id=3&username=xyz'
+    index = str.indexOf('?')
+    var data = str.substr(index+1)
+
+//    逐一截取属性
+    arr = data.split('&')
+
+//    截取出属性名和属性值
+    var obj = {}
+    for (let i=0; i<arr.length; i++){
+        tmp = arr[i].indexOf('=')
+        key = arr[i].substring(0,tmp)
+        value = arr[i].substring(tmp+1)
+        obj[key] = value
+    }
+    console.log(obj)
+</script>
+
+    <!--reg = /.*-->
+</body>
+</html>

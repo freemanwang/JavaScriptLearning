@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>History</title>
+</head>
+<body>
+<h2>History</h2>
+<input type="button" id="btn" value="后退">
+<script>
+    /*
+    * History
+    *   -对象可以操作浏览器向前或向后翻页
+    *
+    *   属性:
+    *       -length 属性,可以获取到当前访问的连接数量,也就是历史记录条数
+    *
+    *   方法:
+    *       -back()     加载history列表前一个url
+    *       -forward    加载history列表后一个url
+    *       -go(num)       加载history列表中的某个具体页面,需要一个整数做参数
+    *              go(1) 向前跳1个
+    *
+    * */
+    console.log(history.length) //直接打开是1,通过test1->test2->本页,是3
+    var his = window.history
+    var btn = document.getElementById('btn')
+    btn.onclick = function () {
+        history.back()
+    }
+
+
+
+</script>
+</body>
+</html>

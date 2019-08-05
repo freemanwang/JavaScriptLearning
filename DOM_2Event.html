@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM_Event</title>
+    <style>
+        input{
+            font-size: 2em;
+        }
+    </style>
+</head>
+<body>
+<!-- Event-->
+<!--   事件是用户和浏览器之间的交互行为,例如onclick  onmousein-->
+<!--   可以为按钮的对应事件绑定处理函数的形式来响应事件-->
+<!--   这些处理函数就是回调函数,因为定义后,由别人(事件触发元素)调用的-->
+
+<!--添加事件有2种办法,1种是在元素中添加js代码,如下-->
+<!--但这种方法不建议使用,因为结构和行为耦合,不便于维护-->
+<input type="button" onclick="alert('内联Event方法1')" value="inlineEvent1">
+<!--我常用的方法是下面这个,感觉问题不大,但既然知道了更好的习惯,以后尽量改正-->
+<input type="button" onclick="clicked()" value="inlineEvent2">
+
+
+<!--更好的方法是,在js代码中,通过DOM操作获取到元素,再给元素添加事件-->
+<input type="button" id="btn" value="divided">
+<script>
+    function clicked() {
+        alert('内联Event方法2')
+    }
+    var btn = document.getElementById('btn')
+    btn.onclick = function () {
+        alert('更好的做法')
+    }
+</script>
+
+<!--
+    浏览器加载页面时,是自上而下的加载;加载一行,渲染一行
+    如果JS事件在HTML元素上面,那很遗憾,事件无法触发
+    因此,可以用window.onload使一些希望页面加载完后才生效的东西在页面加载完后才有效
+    但最好还是把JS代码写在最下面,否则先加载JS而非页面,页面不出来JS又没啥用;
+    虽然现在网速快了影响不大,但JS写底部是个好习惯.
+-->
+<hr>
+
+<!--这个button怎么点都没用,因为JS里的DOM操作时元素未加载,JS未能获取到,更别说添加事件了-->
+<!--<script>-->
+    <!--var bt = document.getElementById('before')-->
+    <!--bt.onclick = function () {-->
+        <!--alert('被点击了')-->
+    <!--}-->
+<!--</script>-->
+
+<!--延缓JS生效才可-->
+<script>
+    <!--使用window.onload-->
+    window.onload = function () {
+    var bt = document.getElementById('before')
+    bt.onclick = function () {
+    alert('被点击了')
+    }
+}
+</script>
+<!--上面2个JS的靶元素-->
+<input type="button" value="BeforeJS" id="before">
+
+
+<h3 class="h3Class" id="h3ID" >用于获取属性</h3>
+<input type="text" value="inputNode" id="in" name="inputName">
+<!--
+    DOM获取元素有挺多方法,可以用不同的筛选办法来获取元素
+        -document.getElementById()
+        -document.getElementsByClass()
+        -document.getElementsByName()
+        -document.getElementsByTagName()
+
+    节点的属性都能获取,直接用 node.attrName 即可获得,
+        PS:只有class比较特殊,无法这样获得,需要用 node.className 来获取
+-->
+<script>
+    var inN = document.getElementById('in')
+    var h =document.getElementById('h3ID')
+    console.log(inN.innerHTML)//空的,很正常,看元素,就不是2段式的元素
+    console.log(inN.value)  //正确得到结果 inputNode
+    console.log(inN.name) //正确
+    console.log(inN.type) //text
+    console.log(h.value)    //undefined,这里该innerHTML
+    console.log(h.innerHTML)    //这才对
+    console.log(h.className)    //获取得到,如果是class,就不行
+
+</script>
+</body>
+</html>

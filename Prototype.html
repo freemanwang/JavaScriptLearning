@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prototype</title>
+</head>
+<body>
+<script>
+    /*
+    * Prototype  原型
+    *   我们创建的每个函数，解析器都会向函数添加一个属性 prototype
+    *       这个属性对应着一个对象，这个对象就是所谓的原型对象
+    *   如果函数作为普通函数调用prototype没有用
+    *   当函数以构造函数的形式调用时，它所创建的对象中就会有个隐藏属性
+    *       该属性指向构造函数的原型对象，我们可以通过 对象.__proto__来访问该属性
+    *
+    *   原型对象相当于一个公共的区域，所有同一类的实例，都可以访问到这个原型对象
+    *       我们可以将对象中共有的内容，统一设置到原型对象中
+    *
+    *   当我们访问对象的一个属性或方法时，它会优先在对象自身中寻找，如果有则直接用；
+    *       如果没有则会去原型对象中寻找，如果找到则直接使用
+    * */
+    function MyClass() {
+    }
+    MyClass.prototype.a = 'a in prototype'
+    MyClass.prototype.b = 'b in prototype'
+    MyClass.prototype.sayHello = function () {
+        console.log('hello world')
+    }
+
+    function Person() {
+    }
+    var mc = new MyClass()
+    var p = new Person()
+    console.log(MyClass.prototype)  //对象，内部有条属性是   __proto__:Object
+    console.log(mc.__proto__)   //打出来了， __proto__:Object
+    console.log(p.prototype)    //undifined
+//    显然这个属性是隐藏的，否则不会实例需要用 __proto__才能访问到
+
+    //对象中没有的，才会去prototype找
+    mc.b = 'b in mc'
+    console.log(mc.a)  //a in prototype
+    console.log(mc.b)  //b in mc
+    mc.sayHello()   //hello world
+
+//    感觉这就是继承
+//    在Object-InitByFactory 结尾说的存在的问题，更好的就觉方法就是使用原型
+//    将共有内容放在原型中，这样就不会污染全局作用域
+//    子类需要覆盖时，重写即可
+
+//    但现在有个问题，假如prototype中有一个属性，对象中没有，但用in来查询对象，会是true
+    console.log('a in mc:'+ ('a'in mc)) //结果是true，但实际上，mc里没有，a这个属性在原型
+    console.log('a in mc:'+ mc.hasOwnProperty('a')) //a in mc:false
+    console.log('b in mc:'+ mc.hasOwnProperty('b')) //b in mc:true
+    console.log(mc.hasOwnProperty('hasOwnProperty'))    //false 这个方法不在对象
+    console.log(mc.__proto__.hasOwnProperty('hasOwnProperty'))    //false 这个方法也不在原型里
+
+//    原型对象也是对象，所以它也有原型
+//    当我们使用一个对象的属性或方法，会在自身找，找不到就去原型找，还找不到就去原型的原型找
+//      最多找到Object，Object都没有就返回undefined
+//    其实就类似Object是所有的祖宗嘛
+    console.log(mc.__proto__.__proto__.hasOwnProperty('hasOwnProperty'))    //true
+    console.log(mc.__proto__.__proto__)    //是个 Object，不出所料
+    console.log(mc.c)   //undefined
+//    object 虽然没有原型，但给原型指向的是null
+    console.log(Object.prototype)
+
+//    toString() 方法
+    var per = new Person()
+    var per2 = new Person()
+    per2.toString = function () {
+        return '这是per2对象重写的toString()方法'
+    };
+
+    //这里运行打印对象，并不是等同于 toString()方法，和视频课不一致
+    console.log(per.toString())   //[object Object]
+    console.log(per)    //Person {}
+    console.log(per2)   //Person {toString: ƒ}
+
+</script>
+</body>
+</html>

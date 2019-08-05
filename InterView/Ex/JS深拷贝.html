@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS-deepCopy()</title>
+</head>
+<body>
+
+<script>
+    var obj = {
+        name:'Alice',
+        age:12,
+        arr:[10,30],
+        privateMes:{hobby:'piano'},
+        fn:function () {
+            console.log('This is inner function')
+        }
+    }
+    // JSON 方法无法复制function
+    var obj2 = JSON.parse(JSON.stringify(obj))
+    //直接 = ，只能算引用
+    var obj3 = obj
+    //已完善使deepCopy可复制函数
+    var obj4 = deepCopy(obj)
+    console.log('obj')
+    console.log(obj)
+    console.log('obj-JSON')
+    console.log(obj2)
+    console.log('obj =')
+    console.log(obj3)
+    console.log('obj-deepcopy')
+    console.log(obj4)
+
+
+    var arr = [1,2,3,4]
+    arrdc = deepCopy(arr)
+    console.log(arr)
+    console.log(arrdc)
+
+    var change = function () {
+        this.obj.name = 'Bob'
+        this.obj.age = 18
+        this.obj.privateMes.hobby = 'Football'
+    }()
+
+    console.log('after change name and hobby')
+    console.log('obj')
+    console.log(obj)
+    console.log('obj-JSON')
+    console.log(obj2)
+    console.log('obj =')
+    console.log(obj3)
+    console.log('obj-deepcopy')
+    console.log(obj4)
+    obj4.fn()
+
+//    函数实现深拷贝
+//    这里实现的，仅支持对象和数组
+    function isObject(o) {
+        //如果是对象或函数，需要深拷贝
+        if (o && typeof o === 'object' || typeof o ==='function')
+            return true
+        return false
+    }
+    function deepCopy(o) {
+        //如果是对象或函数，就{}；数组就[].其实，数组和对象在JS看来都是object
+        var objClone = isObject(o)?{}:[]
+        console.log(isObject(objClone),typeof objClone,999)
+        for (let key in o) {
+            if (isObject(key)) {
+                //递归深复制
+                objClone[[key]] = deepCopy(o[key])
+            } else if (Array.isArray(key)) {
+                objClone[key] = o[key].concat()
+            }else {
+                objClone[key] = o[key]
+            }
+        }
+        return objClone
+    }
+
+    // function f1() {
+    //     let tmp = 3
+    //     alert(tmp)
+    // }
+    // f2 = f1
+    // f1.__proto__.sayHello = function(){alert('hello')}
+    // // f2()
+    // // f1()
+    // f1.string = 'hello'
+    // // f1.sayHello()
+    // // f2.sayHello()
+    // console.log(f1.string + 'f1.string')
+    // alert(f2.string+'f2.string')
+    // console.log(f1.__proto__)
+    // console.log(f1)
+
+
+</script>
+</body>
+</html>

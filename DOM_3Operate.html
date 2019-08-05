@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOMOperate</title>
+</head>
+<body>
+<ul id="ul">
+    <li id="li1" class="li">li1</li>
+    <li id="li2" class="li">li2</li>
+    <li id="li3" class="li">li3</li>
+</ul>
+<input id="b1" type="button" value="尾增节点">
+<input id="b2" type="button" value="2前插节点">
+<input id="b3" type="button" value="删除li3">
+<input id="b4" type="button" value="替换li1">
+<script>
+    var b1 = document.getElementById('b1')
+    var b2 = document.getElementById('b2')
+    var b3 = document.getElementById('b3')
+    var b4 = document.getElementById('b4')
+    var ul = document.getElementById('ul')
+
+    //在最后添加一个节点
+    b1.onclick = function () {
+        //创建元素节点
+        //document.createElement(ElementTagName)    根据标签名生成元素节点
+        var lstli = document.createElement('li')
+
+        //创建文本节点
+        //document.createTextNode(str)    根据str创建一个文本节点
+        var tnode = document.createTextNode('li4')
+
+        //给父节点添加子节点
+        //父节点.appendChild(子节点)      这样会添加在最末尾
+        lstli.appendChild(tnode)
+        // console.log(lstli)
+        // console.log(ul)
+
+        ul.appendChild(lstli)
+    }
+
+//    在指定节点前插入新的子节点
+//    父节点.insertBefore(新子节点, 子节点)   把新子节点插在子节点前
+//    这里在li2前插入
+    b2.onclick = function () {
+        var li = document.createElement('li')
+        li.innerHTML = 'InertLi'
+        ul.insertBefore(li,ul.children[1])
+    }
+
+
+//    删除节点
+//    父节点.removeChild(子节点)   挺麻烦的,想删节点还得知道父节点.可以用parentNode
+//    更好的办法:
+//    子节点.parentNode.removeChild(子节点)
+    b3.onclick = function () {
+        var li3 = document.getElementById('li3')
+        li3.parentNode.removeChild(li3)
+    }
+
+
+//    替换节点
+//    同删除节点,2种办法,推荐后种
+//    父节点.replaceChild(新节点,旧节点)   挺麻烦的,想删节点还得知道父节点.可以用parentNode
+//    更好的办法:
+//    子节点.parentNode.replaceChild(新节点,就节点)
+    b4.onclick = function () {
+        var li = document.createElement('li')
+        li.innerHTML = 'ReplaceLi'
+        var li1 = document.getElementById('li1')
+        li1.parentNode.replaceChild(li,li1)
+    }
+
+   
+
+</script>
+</body>
+</html>

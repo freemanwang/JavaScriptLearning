@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <h3>请输入邮箱地址,将校验是否合法</h3>
+    <input type="text" v-model:value="msg" @change="check" placeholder="请输入邮箱地址">
+    <h4 v-text:value="val"></h4>
+    <h4 v-text:value="res"></h4>
+</div>
+<script>
+/*
+* 电子邮件
+*   hello                .world                 @    programer        .com             .cn
+*   任意字母数字下划线   .任意字母数字下划线    @    任意字母数字     .任意字母(2-5)   .任意字母(2-5)
+*   \w{3,}               (\.\w+)*               @    [A-z0-9]         (\.[A-z]{2-5}){1,2}
+ *
+  * */
+    // reg = /^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2-5}){1,2}$/g
+    reg = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
+    var vm = new Vue({
+        el:"#app",
+        data:{
+          msg:"",
+          val:'',
+          res:'',
+          // reg: /^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2-5}){1,2}$/g
+        },
+        methods:{
+            check:function () {
+                val=this.msg
+                if (reg.test(this.msg)) {
+                    alert(this.msg)
+                    this.res = '邮箱合法'
+                }
+                else{
+                    alert(this.msg)
+                    this.res = '邮箱非法'
+                }
+            }
+        }
+    })
+
+</script>
+</body>
+</html>

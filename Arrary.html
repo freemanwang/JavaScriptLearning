@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>arr1ary</title>
+</head>
+<body>
+<script>
+    /*
+    *JS中对象分为3种：
+    *
+    * 1.内建对象
+    * 2.宿主对象
+    * 3.自定义对象（之前讨论的都是这些）
+    *
+    *数组
+    *   数组也是对象，使用数字做索引来操作元素
+    *   和普通对象的属性有同有异，
+    *   相同在于都是存储数据的
+    *   不同在于属性用字符串做属性名来操作属性，数组用索引
+    * */
+
+    //方法1，构造方法创建数组，然后用下标添加数组元素
+    var arr1 =new Array()
+    console.log(typeof arr1)
+    arr1[0] = 1
+    arr1[1] = 2
+    arr1[5] = 6
+    for (let i = 0; i <= 5; i++) {
+        console.log('arr1['+i+']='+arr1[i])
+    }
+//    下标0，1分别为1，2；下标5为6；下标2-4为undefined
+    console.log(arr1.length) //长为6。实际上2-4索引的空间分配了，未赋值而已
+//    数组长度 arr.length 受索引影响，值为最大索引+1
+
+
+//    方法2，构造方法创建的同时赋值
+    arr2 = new Array(1,2,3)
+    for (let i = 0; i <= 2; i++) {
+        console.log('arr['+i+']='+arr2[i])
+    }
+    //正常
+
+//    方法3，直接字面意思创建。和python的list一样啊
+    arr3 = [1,2,3]
+    for (let i = 0; i <= 2; i++) {
+        console.log('arr['+i+']='+arr3[i])
+    }
+    //正常运行
+
+//    对象常用方法
+
+//  1. join(char)  把数组元素（对象调用其toString()方法）使用参数作为连接符连接成一字符串
+    a0 = [1,2,3,4,5]
+    console.log(a0.join(' | '),typeof a0.join(' | '))   //1 | 2 | 3 | 4 | 5 string
+    console.log(a0.join(' '))  //1 2 3 4 5
+
+
+
+//  2.push() 和 pop()    栈方法，允许像栈一样用数组
+    stack = new Array(1,2,3)
+    console.log('数组初始为：'+stack)
+    stack.push(5)                           //1，2，3
+    console.log('push(5)后数组为'+stack)   //1，2，3，5
+    console.log('pop出的数是：'+stack.pop()) //5
+
+
+//  3.队列方法
+//   shift()   删除数组index最小的元素，并使后续所有元素index-1，数组length-1
+//   unshift()   在数组首部插入元素,同理会修改index和length
+//   push()  不必赘述
+    queue = new Array(0,10,100)
+    queue.push(200,300)
+    console.log(queue)  //(5) [0, 10, 100, 200, 300]
+    console.log(queue.shift())      //0
+    console.log(queue)  //(4) [10, 100, 200, 300]
+    queue.unshift(500)
+    console.log(queue)  //(5) [500, 10, 100, 200, 300]
+//    打印出来的queue，  是一个Array对象.前面是  索引:值  的键值对,然后是  length:长
+//    我觉得实质上就是一个对象,里面有很多属性,属性名是数字索引,属性值就是数据;length也是一个属性
+
+/*
+    4. splice(startIndex, delLength [,insertVar[)
+    splice方法用于一次性解决数组添加、删除（这两种方法一结合就可以达到替换效果），方法有三个参数
+     1.开始索引
+     2.删除元素的位移
+     3.插入的新元素，当然也可以写多个
+    splice方法返回一个由删除元素组成的新数组，没有删除则返回空数组
+*/
+    //删除
+    array = [1,5,10,15,20,25,30]
+    console.log(array.splice(2,4)) //(4) [10, 15, 20, 25] 从下标2开始往后4个都删除,以数组返回
+    console.log(array)  //[1, 5, 30]
+
+//  替换
+    a2 = [1,2,3,4,5]
+    console.log(a2.splice(2,2,10,20,30,40,50))  //(2) [3, 4]  删除掉的2个以数组返回
+    console.log(a2)     //(8) [1, 2, 10, 20, 30, 40, 50, 5]  删除掉的被替换了,哪怕比原来多
+
+//    插入
+    a3 = [1,2,3]
+    console.log(a3.splice(1,0,100,200))     //[]   没有被删的,就返回空数组
+    console.log(a3)     //(5) [1, 100, 200, 2, 3]   成功插入
+
+
+
+//  5. slice(start,end)   切片,不改变原有,返回新的数组,内容是index在[start, end)半开半闭
+    arr = [0,1,2,3,4,5]
+    console.log(arr.slice(2,4))  //(2) [2, 3]
+    console.log(arr.slice(1)) //(5) [1, 2, 3, 4, 5]   没有end就切到末尾
+    console.log(arr.slice(3,2)) //[]   start>end返回空数组
+    console.log(arr.slice(3,-1)) //(2) [3, 4]    负数下标就是从尾往前数,倒数不是从0开始,
+    //这里的-1就是倒数第一个,就是值为5的元素,下标为5,所以截取下标3,4的元素.
+    console.log(arr)    //(6) [0, 1, 2, 3, 4, 5]   元素组没有被改动
+
+
+
+
+//  6.concat(arr1 [, arr2,arr3...]) 合并数组(2个或多个),将合并后的数组返回,不改变原数组
+    a1 = [1, 2]
+    a2 = [3, 4]
+    arr = a1.concat(a2)
+    console.log(arr) //(4) [1, 2, 3, 4]
+    a1 = [1,2]
+    a2 = [5,6]
+    a3 = [8,9]
+    a4 = a1.concat(a2,a3)
+    console.log(a4) //(6) [1, 2, 5, 6, 8, 9]
+    console.log(a1) //(2) [1, 2]
+
+
+
+
+//  7. reverse()   反转,要注意的是,作用于原数组自身
+    console.log(arr.reverse())  //(6) [5, 4, 3, 2, 1, 0]  返回值就是逆序后的原数组
+    console.log(arr)    //(6) [5, 4, 3, 2, 1, 0]   的确作用于自身
+
+
+//  8.sort([function])     对数组进行排序，同样sort会改变原数组。
+    //  当没有参数的时候会按字母表升序排序，如果含有undefined
+    //  会被排到最后面，对象元素则会调用其toString方法，如果想按照自己定义方式排序，
+    //  可以传一个排序方法进去，很典型的策略模式.
+    a = [13,2,67,22,9,41,83,26]
+    console.log(a.sort())   //(8) [13, 2, 22, 26, 41, 67, 83, 9]  注意,是按字母表排序
+    console.log(a)      //(8) [13, 2, 22, 26, 41, 67, 83, 9]  原数组被改了
+//    默认用字母表排序,导致  13 < 2,显然不满足数字排序的需求,那么可以自定义排序方法
+    a.sort(function (v1,v2) {   //sort内部使用快排,每次比较2个元素大小
+        return v1-v2            //如果不传参,则用字母表排序;
+    })                          //如果有参,那就把要比较的2个数传入自定方法进行比较
+                                //返回值 > 0 表 v1 > v2
+                                //返回值 = 0 表 v1 = v2
+                                //返回值 < 0 表 v1 < v2
+    console.log(a)  //(8) [2, 9, 13, 22, 26, 41, 67, 83]   这样就如预期了
+
+
+
+//   9.遍历数组所有元素,除普通for循环,还有for (t in arr),但是注意返回的是下标,不是值
+    arr = [10,20,30,40]
+    for (t in arr){
+        console.log('for(t in arr),遍历的是下标:'+t)   //打出的是0,1,2,3
+    }
+//    那么想打印数组各元素,就需要用下标了
+    for (t in arr){
+        console.log('for in 需要用arr[t]打印元素'+arr[t])
+    }
+
+
+
+//  10. for (t of arr)   这是ES6新增的方法,这里遍历的是数组的值;和for in遍历下标不同
+    for(t of arr){
+        console.log('for(t of arr),遍历的是值:'+t)
+    }
+
+
+//   11. array.forEach(function(currentValue, index, arr), thisValue)
+//     作用:对函数所有值执行一次function,总是返回undefined;需要返回处理后数据只能用map().
+
+//       参数：
+//          -currentValue	必须。当前元素的值
+//          -index	        可选。当前元素的索引值
+//          -arr	        可选。当前元素属于的数组对象
+//          -thisValue      可选。对象作为该执行回调时使用，传递给函数，用作 "this" 的值。
+//           如果省略了 thisValue，或者传入 null、undefined，那么回调函数的 this 为全局对象。
+
+    res = arr.forEach(function (a,b,c,d) {
+        // console.log('a'+a)
+        // console.log('b'+b)
+        console.log('c:'+c+'type：'+typeof c +',c是数组'+ (c == arr))
+        //c:1,2,3,4type：object,c是数组true
+        console.log('d:'+d)
+        // d:undefined   可见只有3个实参传进来
+    })
+//    这种由我们创建但不由我们调用的函数，我们称之为回调函数
+//    数组中有几个元素，函数就会执行几次；每次执行时，浏览器会将遍历到的元素以实参的形式
+//         传递进来，我们可以定义形参，来读取元素
+//    回调函数会传3个参数：
+//      -第一个参数a是数组中当前遍历的元素（如果遍历的是对象，那就是对象的属性值）
+//      -第二个参数b是数组当前遍历元素的索引
+//      -第三个参数c，就是正在遍历的数组
+//      -没有更多的参数了，因为d输出的就是undefined，证明这里没了
+    console.log('原数组:'+arr,'\nforEach()处理后数组:'+res)
+//    原数组没变,res是undefined,因为没有return
+    
+    res = arr.forEach(function (val,index) {
+        console.log(val,index)
+        return val+1
+    })
+    console.log('原数组:'+arr,'\nforEach()处理后数组:'+res)
+    //arr没变,res是undefined.forEach()就是返回undefined,写return都没用
+
+
+//    12.  array.map(function(currentValue,index,arr), thisValue)
+//          遍历数组所有元素，返回依次处理后结果组成的新数组，不影响原数组；不会检测空数组
+//      参数：
+//          -currentValue	必须。当前元素的值
+//          -index	        可选。当前元素的索引值
+//          -arr	        可选。当前元素属于的数组对象
+//          -thisValue      可选。对象作为该执行回调时使用，传递给函数，用作 "this" 的值。
+//           如果省略了 thisValue，或者传入 null、undefined，那么回调函数的 this 为全局对象。
+        res = arr.map(function (val, index, arr) {
+            console.log('当前处理的元素下标为'+index+',值是'+val+'.将其平方')
+            return val ** 2
+        })
+        console.log('原数组:'+arr,'\nmap()处理后数组:'+res)//原数组没变,新数组是注意逐一后的
+//    如果没有return,那res数组就是长尾4的空数组
+
+
+//   13. 数组与字符串互转
+    str = '123,456,789'
+    arr = str.split(',')
+    console.log(arr)        //(3) ["123", "456", "789"]
+    s = arr.join(',')
+    console.log(s)      //123,456,789
+
+
+//  14. array.every(function(currentValue,index,arr), thisValue)
+    //  对所有元素用function做检测,只要有1个不符要求,就返回false;全满足要求才返回true
+    arr = [20,103,15,28,200,7,3,9]
+    //检测数组中元素是不是全部大于18
+    res = arr.every(function (val) {
+        return val > 18
+    })
+    console.log("数组中所有元素都大于18!  "+res)//数组中所有元素都大于18!  false
+
+//  15. array.some(function(currentValue,index,arr),thisValue)
+//    和every()不同,这里只要有满足条件的即可,不需要全员
+    res = arr.some(function (val) {
+        return val > 18
+    })
+    console.log("数组中存在大于18的元素!  "+res)  //数组中存在大于18的元素!  true
+
+
+//   18. array.filter(function(currentValue,index,arr), thisValue)
+//        返回满足筛选的元素组成的新数组,不影响原数组
+    res = arr.filter(function (val) {
+        return val < 18
+    })
+    console.log(arr + '中小于18的元素有:'+res)
+    //20,103,15,28,200,7,3,9中小于18的元素有:15,7,3,9
+
+
+//  17. indexOf()   和  lastIndexOf()  方法
+//  18. array.sort(sortfunction)  默认按字母排序,也可自定义排序函数
+</script>
+</body>
+</html>

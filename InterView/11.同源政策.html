@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>同源政策</title>
+</head>
+<body>
+<script>
+    /*
+    * 跨域是由浏览器进行判定和操作的，浏览器不允许跨域的资源请求。(实际上是拿到了跨域的资源，但浏览器不允许解析使用)
+    * ajax是不可以跨域的。跨域就是协议、域名、端口最少一个不同
+    *
+    * 但有3个标签允许跨域加载资源(浏览器允许，网站方允不允许另说)
+    *   <img src=XXX>
+    *   <link href=XXX>  可以引用CDN
+    *   <script src=XXX> 可以用于JSONP
+    *
+    *
+    *
+    * */
+    window.callback = function (data) {
+        console.log(data)
+    }
+
+</script>
+<script src="http:coding.m.imooc/com/api.js"></script>
+</body>
+</html>

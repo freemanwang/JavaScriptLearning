@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>String</title>
+</head>
+<body>
+<script>
+    /*
+    * String
+    *   -String不用多说，也是一个常用的大类了
+    *
+    *
+    * */
+//    常用方法：
+
+//    length  没啥好说
+//  1. charAt(index)    返回字符串中指定位置的字符(下标为index)
+    str = 'hello world'
+    console.log(str.charAt(6))  //w
+
+//  2. str.concate(str1,str2)     作用和 + 一样，拼接字符串;返回拼接后的新string，不影响原串
+    res = str.concat('你好','再见','bye!')
+    console.log(res)
+
+//  3. str.indexOf(str1[,startIndex])   检索str中是否有str1，返回开始的下标；没有就返回-1
+    console.log(res.indexOf('nice'),res.indexOf('o'))   //-1 4
+//  还可以指定startIndex，和其他语音一样。默认是从0 开始，上面一行只能找到第一个0
+    console.log(res.indexOf('o',5))   //7
+
+//  4. str.lastIndexOf(str2 [,startIndex))    从后往前检索，给出第一个匹配的下标,同理可设开始点
+    console.log(res.lastIndexOf('o'))   //7
+    console.log(res.lastIndexOf('o',6))   //4
+
+//   5. substring(start,end)    截取字符串，和 slice() 类似；start取，end不取
+//            和slice()有区别，不能接受复数参数，如果传了复数，被当成0
+    res1 =res.substring(3,6)
+    console.log(res1)
+
+//   6. substr(start,length)        截取字符串，start是开始下标，length是截多长
+    res2 = res.substr(5,5)
+    console.log(res2)
+
+//   7. split(str) 把字符串拆成数组,根据参数str来拆
+//    如果传递一个空串做参数，会一个个字符分开
+    sa = str.split('')
+    console.log(sa) //(11) ["h", "e", "l", "l", "o", " ", "w", "o", "r", "l", "d"]
+    sarr = res.split(' ')
+    console.log(sarr,typeof sarr,Array.isArray(sarr))
+    //(2) ["hello", "world你好再见bye!"] "object" true
+
+
+//   8. toLowercase() 和 toUpperCase  没啥好说的
+    console.log(str.toUpperCase())  //HELLO WORLD
+</script>
+
+</body>
+</html>

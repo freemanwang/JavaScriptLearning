@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    * cookie
+    *   用于客户端和服务端通信，保存了一些状态(http是无状态的)
+    *   语法：document.cookie 获取
+    *
+    * cookie的缺点
+    *   -1.存储量小，仅4KB
+    *   -2.所有http请求都带cookie，影响效率
+    *   -3.API简单，需封装才能用 document.cookie = ....，字符串解包获取很麻烦
+    *
+    * localStorage 和 sessionStorage
+    *   HTML5专为存储而设计，最大容量5M
+    *   API简单易用，key-value存储，比cookie好用太多
+    *       localStorage.setItem(key,value);
+    *       localStorage.getItem(key);
+    *       sessionStorage.setItem(key,value);
+    *       sessionStorage.getItem(key);
+    *   PS：建议try-catch操作，避免在诸如隐藏模式下get不到的报错
+    *
+    * 两者的区别：
+    *   如果不清理，localStorage一直存在
+    *   sessionStorage关闭浏览器即清空
+    * */
+    /*
+    * 问题：cookie，localStorage和sessionStorage的区别
+    *   1.容量，cookie仅4KB，后2者5M
+    *   2.是否会携带到ajax中，cookie会，后两者仅做存储
+    *   3.易用性，cookie麻烦，后两者简单
+    * */
+
+</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CheckBox</title>
+</head>
+<body>
+<span>你喜欢的内容是?</span>
+<input type="radio" id="flag"><input type="button" id="sctAll" value="全选/全不选"><br>
+<input type="checkbox" name="items" value="p1">p1
+<input type="checkbox" name="items" value="p2">p2
+<input type="checkbox" name="items" value="p3">p3
+<input type="checkbox" name="items" value="p4">p4 <br>
+<!--checkboxObject.checked = tre|false   checked属性代表是否被选中-->
+<input type="button" id="b1" value="全选">
+<input type="button" id="b2" value="全不选">
+<input type="button" id="b3" value="反选">
+<input type="button" id="b4" value="提交">
+<script>
+    var items = document.getElementsByName('items')
+    b1 = document.getElementById('b1')
+    b2 = document.getElementById('b2')
+    b3 = document.getElementById('b3')
+    b4 = document.getElementById('b4')
+    sctAll = document.getElementById('sctAll')
+    flag = document.getElementById('flag')
+    b1.onclick = function () {
+        flag.checked = true
+        for(let i=0; i<items.length; i++){
+            items[i].checked = true
+        }
+    }
+    b2.onclick = function () {
+        flag.checked = false
+        for(let i=0; i<items.length; i++){
+            items[i].checked = false
+        }
+    }
+    b3.onclick = function () {
+        for(let i=0; i<items.length; i++){
+            items[i].checked = !items[i].checked
+        }
+    }
+    b4.onclick = function () {
+        for(let i=0; i<items.length; i++){
+            if(items[i].checked){
+                alert(items[i].value)
+            }
+        }
+    }
+    sctAll.onclick = function () {
+        if (flag.checked){
+            flag.checked = false
+            for(let i=0; i<items.length; i++){
+                items[i].checked = false
+                }
+        } else {
+            flag.checked = true
+            for(let i=0; i<items.length; i++){
+                items[i].checked = true
+            }
+        }
+    }
+    
+//    为每个选项绑定click,检查全选了没
+    for(let i=0; i<items.length; i++ ){
+        items[i].onclick = function () {
+            let all = true
+            for (let j=0; j<items.length; j++){
+                if (!items[j].checked){
+                    all = false
+                    break
+                }
+            }
+            if (all){
+                flag.checked = true
+            }else {
+                flag.checked = false
+            }
+        }
+    }
+    
+    
+</script>
+
+</body>
+</html>

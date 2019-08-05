@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flex</title>
+    <style>
+        #content{
+            border: 1px solid black;
+            display: flex;
+            width: 400px;
+            height: 200px;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content:space-around;
+            align-items: baseline;
+            align-content: stretch;
+        }
+        #content :first-child{
+            background-color: red;
+            /*display: inline-block;*/
+        }
+        #content :nth-child(2){
+            background-color: blue;
+        }
+        #content :nth-child(3){
+            background-color: yellow;
+            flex-basis: 120px;
+            align-self: flex-end;
+        }
+        #content :nth-child(10){
+            flex-shrink: 0.5;
+        }
+        #content :nth-child(11){
+            flex-grow: 2;
+        }#content :nth-child(12){
+            flex-grow: 4;
+        }
+        #content div{
+            border: 1px dotted black;
+        }
+
+    </style>
+</head>
+<body>
+<div id="content">
+    <div id="d1">DIV1</div>
+    <div id="d2">DIV2</div>
+    <div id="d3">DIV3</div>
+    <div id="d4">DIV4</div>
+    <div id="d5">DIV5</div>
+    <div id="d6">DIV6</div>
+    <div id="d7">DIV7</div>
+    <div id="d8">DIV8</div>
+    <div id="d9">DIV9</div>
+    <div id="d10">DIV10</div>
+    <div id="d11">DIV11</div>
+    <div id="d12">DIV12</div>
+    <!--<div id="d13">DIV13</div>-->
+    <!--<div id="d14">DIV14</div>-->
+    <!--<div id="d15">DIV15</div>-->
+</div>
+</body>
+</html>

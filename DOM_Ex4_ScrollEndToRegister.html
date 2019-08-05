@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <style>
+        #info{
+            width: 300px;
+            height: 300px;
+            overflow: auto;
+        }
+        #d1{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            border: 5px solid blue;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<!--<div id="d1">div1</div>-->
+<h3>欢迎注册</h3>
+<p id="info">
+    嗨，小柒让大家久等了。今天小柒给大家分享一些关于处理PPT中大段文字的技巧。哎，这件事还的从小柒给老板做PPT说起，那文字多如牛毛........这次从四个方面进行分享：1、了解设计四大基本原则；2、利用灰色，降低正文内容对比；3、形状补充信息单调性并引导视觉；4、善用逻辑图表。一、了解设计四大基本原则
+    这四大基本原则能行之有效的运用到设计中的任何一个地方。四大原则即：对比：避免元素太过相似，可以利用颜色、大小等产生对比；
+
+    作者：董小柒PPT
+    链接：https://www.jianshu.com/p/cae574a60f21
+    来源：简书
+    简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。
+    改动一下排版，让整个画面有空间感和透气感，不会显得那么拥挤。
+
+    排版没有问题了，大小对比也有了，但是整体的文字都比较突出，怎么办呢？
+
+    用灰色处理一下正文，降低对比度，更清晰了。
+
+    看一下。
+    看出效果了吧，这是大段文字的处理方法之一。
+
+    三、形状补充信息单调性并引导视觉
+    上面这句话什么意思呢？
+
+    利用色块的面积和比重来突出PPT中的主题或者重要部分，加强信息的对比。
+
+    估计还是比较难以理解是吧。
+
+    不急，下面就举个例子。
+    嗨，小柒让大家久等了。今天小柒给大家分享一些关于处理PPT中大段文字的技巧。哎，这件事还的从小柒给老板做PPT说起，那文字多如牛毛........这次从四个方面进行分享：1、了解设计四大基本原则；2、利用灰色，降低正文内容对比；3、形状补充信息单调性并引导视觉；4、善用逻辑图表。一、了解设计四大基本原则
+    这四大基本原则能行之有效的运用到设计中的任何一个地方。四大原则即：对比：避免元素太过相似，可以利用颜色、大小等产生对比；
+
+    作者：董小柒PPT
+    链接：https://www.jianshu.com/p/cae574a60f21
+    来源：简书
+    简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。
+    改动一下排版，让整个画面有空间感和透气感，不会显得那么拥挤。
+
+    排版没有问题了，大小对比也有了，但是整体的文字都比较突出，怎么办呢？
+
+    用灰色处理一下正文，降低对比度，更清晰了。
+
+    看一下。
+    看出效果了吧，这是大段文字的处理方法之一。
+
+    三、形状补充信息单调性并引导视觉
+    上面这句话什么意思呢？
+
+    利用色块的面积和比重来突出PPT中的主题或者重要部分，加强信息的对比。
+
+    估计还是比较难以理解是吧。
+
+    不急，下面就举个例子。
+</p>
+<input type="button" id="btn1" value="Scroll">
+<!--添加disable="disable"使元素不可用-->
+<!--滚到底才让用-->
+<input type="button" id="btn2" value="注册" disabled="disabled">
+<script>
+    /*
+    以下获取的属性都是数值,不带px,可用于计算
+
+    clientWidth     获取元素的可见宽度   不带边框,带内容区和内边距
+    clientHeight    获取元素的可见高度   不带边框,带内容区和内边距
+
+    scrollWidth     获取元素整个滚动区域的宽度
+    scrollHeight    获取元素整个滚动区域的高度
+
+    scrollLeft      获取水平滚动条滚动的距离,距离是水平滚动条最左距离水平滚动框左侧部的数值
+    scrollTop      获取垂直滚动条滚动的距离,距离是垂直滚动条顶部距离垂直滚动框顶部的数值
+     */
+    // var d1 = document.getElementById('d1')
+    var info = document.getElementById('info')
+    var btn1 = document.getElementById('btn1')
+    var btn2 = document.getElementById('btn2')
+    // d1.onclick = function () {
+    //     console.log('div1现在的可见宽度是(单位:px): '+d1.clientWidth) //120
+    //     console.log('div1现在的可见高度是(单位:px): '+d1.clientHeight)    //120
+    // }
+    btn1.onclick = function() {
+        console.log('当前显示的高度:' + info.clientHeight)
+        console.log('当前滚动到的高度:'+info.scrollTop)
+        console.log('滚动条总高度' + info.scrollHeight)
+        console.log("还差"+(info.scrollHeight-info.scrollTop)+"px才到底")
+    }
+
+//    滚动条事件
+//    onscroll       该事件会在滚动条滚动时触发
+    info.onscroll = function () {
+    //    以下情况成立时,代表滚动条滚到底了
+        //    滚动条总高度 - 当前滚动到的高度 = 当前显示的高度
+    //   即:  info.scrollHeight - info.scrollTop == info.clientHeight
+        if (info.scrollHeight - info.scrollTop == info.clientHeight){
+            console.log('滚动条到底了')
+            btn2.disabled = false
+        }
+    }
+    btn2.onclick = function () {
+        alert("注册成功")
+    }
+
+
+
+</script>
+</body>
+</html>

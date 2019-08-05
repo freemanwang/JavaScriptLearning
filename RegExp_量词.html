@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RegExp量词</title>
+</head>
+<body>
+<script>
+    /*
+    *   \w  任意字母,数字,_(下划线)  [A-z0-9_]
+    *   \W  除了字母,数字,_(下划线)
+    *   \d  任意数字  [0-9]
+    *   \D  除了数字
+    *   \s  空格
+    *   \S  除了空格
+    *   \b  单词边界
+    *   \B  除了单词边界
+    * */
+//    创建reg检测是否含child
+    reg1 = /child/
+    reg2 = /\bchild\b/   //这里会检查单词边界,就是有没有空格,是不是完整单词
+    console.log(reg1.test('hellochildren'))  //这里结果是ture,虽然是children,
+    // 但是判断到child,不看后面ren,更不在意单词间没有空格隔开了
+    console.log(reg2.test('hellochildren'))    //false,空格都没有,一坨,别说了
+    console.log(reg2.test('hello children'))    //false,虽然空格,但children != child
+    console.log(reg2.test('hello child'))       //true,这才是对的
+
+   // 清除字符串首尾的空格
+   var str = prompt('Pls input username:')
+    console.log(str)
+    reg = /^\s*|\s*$/g
+    console.log(str.replace(reg,''))
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>闭包</title>
+</head>
+<body>
+<h1>闭包相关</h1>
+<script>
+    let name = 'object3'
+    var obj1 = {
+        name:"object1",
+        getName:function () {
+            console.log(this.name,'obj1')
+        }
+    }
+    var obj2 = {
+        name:"object2",
+        getName:function () {
+            return function(){
+                console.log(this.name,'obj2')
+            }
+        }
+    }
+
+    //函数做返回值
+    function F1() {
+        var a = 100
+
+        return function () {
+            console.log(a)
+        }
+    }
+    var f1 = F1()  //f1 的实质就是一个打印a的函数，特殊就特殊在它定义在F1()内
+    var a = 200
+    f1()  //100
+// 函数的父级作用域是其定义时的作用域，并不是执行时的作用域，这就是闭包性值的体现
+
+//    函数做参数传递
+    function F2(fn) {
+        var a = 300
+        fn()
+    }
+    F2(f1) //把 f1 这个 打印a 的函数传给 F2()内执行，打印的是F1内的a=100的值
+</script>
+</body>
+</html>

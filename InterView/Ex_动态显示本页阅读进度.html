@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动态显示滚动栏滚了多少</title>
+    <style>
+        body{
+            margin: 0;
+            height: 2000px;
+
+        }
+        #wrap{
+            width: 100%;
+            height: 50px;
+            position: fixed;
+            bottom: 0;
+            border:1px solid black
+        }
+        #percentage{
+            position: absolute;
+            height: 100%;
+            background-color: darkcyan;
+        }
+        #content{
+            height: 500px;
+            width: 600px;
+            overflow: auto;
+            border: 1px solid black;
+        }
+        #space{
+            height: 3000px;
+        }
+
+    </style>
+</head>
+<body>
+<h3 id="h1"></h3>
+<h3 id="h2"></h3>
+<h3 id="h3"></h3>
+<h3 id="h4"></h3>
+<div id="content">
+    <div id="space"></div>
+
+</div>
+<div id="wrap">
+    <div id="percentage"></div>
+</div>
+<script>
+    var content = document.getElementById('content')
+    var per = document.getElementById("percentage")
+    var h1 = document.getElementById("h1")
+    var h2 = document.getElementById("h2")
+    var h3 = document.getElementById("h3")
+    var h4 = document.getElementById("h4")
+    h1.innerHTML = "当前窗口可显示高度为："+content.clientHeight+"px"
+    h2.innerHTML = "当前向下滚动的高度为："+content.scrollTop+"px"
+    h3.innerHTML = "当前距离页底还剩"+(content.scrollHeight - content.scrollTop)+"px"
+    let index = content.scrollTop/(content.scrollHeight - content.scrollTop)
+    content.onscroll = function () {
+        h1.innerHTML = "当前窗口可显示高度为："+content.clientHeight+"px"
+        h2.innerHTML = "当前向下滚动的高度为："+content.scrollTop+"px"
+        h3.innerHTML = "当前距离页底还剩"+(content.scrollHeight - content.scrollTop)+"px"
+        let index = content.scrollTop/(content.scrollHeight - content.scrollTop)
+        index = parseFloat(((index*100)+'').substr(0,5)) //小数点后2位
+        h4.innerHTML = "已滚动了"+index+'%'
+        console.log(index)
+        per.style.width = index+"%"
+        // alert(1)
+    }
+    // setInterval(function () {
+    //     alert(content.scrollTop)
+    // },3000)
+</script>
+
+</body>
+</html>

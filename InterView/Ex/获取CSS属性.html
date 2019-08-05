@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #d1{
+            width: 100px!important;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<div id="d1" style="width: 200px">DIV1</div>
+<script>
+    var d1 = document.getElementById('d1')
+    console.log(d1.style.width)
+    console.log(window.getComputedStyle(d1).width)
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原型和原型链</title>
+</head>
+<body>
+<h3 id="h3">Hello</h3>
+<div id="d1">DIV1</div>
+<script>
+    /*
+    *1.如何精准判断一个对象是数组类型   （typeof不行，只得出是object，应该instanceof）
+    * 2.写一个原型链继承的例子
+    * 3.描述new一个对象的过程
+    *4.zepto（或其他框架）源码中如何使用原型链
+    * */
+//1.构造函数
+//    所有引用类型都有构造函数
+//    构造函数函数名开始一定是大写，自己写构造函数也必须如此；普通函数才驼峰
+//    调用构造函数需要 new 关键字
+    function Foo(name, age) {
+        this.name = name
+        this.age = age
+        this.class = 'class-1'
+        // return this  //这一行默认有，不写也有,所以最好不写，万一return
+        //错了，有害无益
+    }
+
+//   1.1 new 的过程：
+    //   -创建一个新对象
+    //   -this指向这个新对象，
+    //   -执行代码，即给this增加属性
+    //   -return this
+
+
+//2.构造函数-扩展
+//  实际开发，推荐前面的写法，不管从效率还是易读性都是前者好
+    var a = {}  //var a = new Object() 的语法糖
+    var b = []  //var a = new Arrary()  的语法糖
+    // function Foo(){...}  是 var Foo = new Function(...)  的语法糖
+
+
+//3原型规则和示例
+//    3.1 所有的引用类型（数组，对象，函数），都具有对象特性，即可自由扩展属性（除'null'外）
+    var tmp = {}
+    tmp.a = 1
+    tmp.b = 2
+
+//    3.2 所有的引用类型（数组，对象，函数），都具有一个__proto__属性(隐式原型)，属性值是一个普通的对象
+    var obj = {}
+    console.log(obj.__proto__)
+    var arr = []
+    console.log(arr.__proto__)
+    function fn() {}
+    console.log(fn.__proto__)
+
+//    3.3 所有的引用类型（数组，对象，函数），都具有一个 prototype 属性(显式原型)，属性值是一个普通的对象
+    console.log(fn.prototype)
+
+//    3.4 所有的引用类型（数组，对象，函数），__proto__属性值指向它的构造函数的 prototype 属性值
+    console.log(Object.prototype)
+    console.log(obj.__proto__ === Object.prototype)  //true
+
+//    3.5 试图得到一个对象的某属性时，如果该对象本身没有这个属性，那么会去它的__proto__（即它的构造函数的prototype）中寻找。
+    Foo.prototype.alertName = function () {
+        alert(this.name)
+    }
+    var f = new Foo('Alice')
+    f.printName = function () {
+        console.log(this.name)
+    }
+    //通过f调用的无论是自身的方法，还是prototype的方法，this指的都是f自身
+    f.printName()
+    f.alertName()
+
+    var item
+    for (item in f){
+        //遍历对象自身的属性
+        //下一行不是很必要，但因为高级浏览器在for in中屏蔽了原型的属性
+        //但加上可保证程序的健壮性
+        if (f.hasOwnProperty(item)){
+            console.log(item)
+        }
+    }
+    //name   age    class    printName，没有alertName，因为它来自原型
+
+
+//4.原型链
+    console.log(f.toString())  //要去 f.__proto__.__proto__  中找
+    console.log(f.__proto__ === Foo.prototype)  //true
+    console.log(f.__proto__)  //
+    console.log(Foo.prototype)
+
+//5.instanceof  用于测试构造函数的prototype属性是否出现在对象的原型链中的任何位置
+//   说人话就是，f 的原型链上，
+//   使用instanceof 判断一个函数是否是一个变量的构造函数
+//   例如 arr instanceof Array
+//   回顾1能发现，Array就是函数名，JS的内置函数名
+    console.log(f instanceof Foo)  //true
+    console.log(f instanceof Object)    //true
+
+
+
+//6.prototype
+    /*
+    * 新建一个函数，会自动为其创建一个prototype属性，默认情况下prototype属性会获得一个constructor属性，这个属性的值是一个指向prototype属性所在的函数的指针。
+    * 说人话就是function内有一个属性叫prototype，这个prototype是一个指向对象的指针，对象就是新建的类的类型；
+    *   这个对象里有一个属性叫constructor，constructor的值是指向函数自身的指针
+    *
+    *   调用构造函数创建一个实例，实例内部将包含一个内部指针__proto__，它指向构造函数的prototype。
+    *   实例.__proto__ === 构造函数.prototype
+    *   不是   实例.__proto__ === 构造函数  ，这是错误的理解
+    *
+    *
+    * */
+
+
+//  EX  构建一个原型链(简单版)
+    function People(name) {
+        this.name = name
+        this.sayHello = function () {
+            console.log('Hello, I\'m '+this.name)
+        }
+    }
+
+    function Student(name) {
+        this.name = name
+        this.doHomework = function () {
+            console.log('I\'m doing my homework!')
+        }
+    }
+    //注意，prototype是一个对象，所以new一个父类对象给它
+    Student.prototype = new People()
+    var stu = new Student('Alice')
+    stu.doHomework()
+    stu.sayHello()
+
+
+//    EX2 构建一个原型链
+    function Elem(id) {
+        this.elem = document.getElementById(id)
+    }
+    //把innerHTML改成val(有参val)  或者  获取innerHTML(无参)
+    Elem.prototype.html = function (val) {
+        var elem = this.elem
+        if(val){
+            elem.innerHTML = val
+            return this
+        }else {
+            return elem.innerHTML
+        }
+    }
+    //绑定事件功能
+    Elem.prototype.on = function (type, fn) {
+        var elem = this.elem
+        elem.addEventListener(type, fn)
+        return this //这行可以写，也可以不写。写了的话可以在on()后跟 .其他操作
+    }
+    var d1 = new Elem('d1')
+    console.log(d1.html())
+    //注意，setTimeout后面的赋值，要写在一个function里，否则会立即触发
+    //一开始就是直接写，导致无法延时
+    setTimeout(function (){d1.html('<h3>赋值新的innerHTML</h3>')},3000)
+    // setInterval()
+    d1.on('click', function () {
+        alert('Clicked')
+    })
+
+    function Animal() {
+        this.spec = 'animal'
+        this.arr = [1,2,3]
+    }
+    function Dog() {
+        this.bark = function () {
+            console.log('bark')
+        }
+    }
+    Dog.prototype = new Animal()
+    d1 = new Dog()
+    dd2 = new Dog()
+    console.log(d1.arr)
+    d1.arr[2] = 10
+    d1.arr = []
+    console.log(d1.arr)
+    console.log(dd2.arr)
+</script>
+</body>
+</html>

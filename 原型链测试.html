@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function Stduent(name,age) {
+        this.name = name
+        this.age = age
+        this.study = function () {
+            console.log('I am studing')
+        }
+    }
+    function Person() {
+        this.say = function () {
+            console.log('I am a person'+this.name)
+        }
+    }
+    Stduent.prototype = new Person()
+    st1 = new Stduent('AA')
+    st1.study()
+    console.log(st1.name)
+    alert(st1.name)
+    st1.say()  //I am a personAA   调用原型的方法，this是st1，所以this.name是AA
+</script>
+</body>
+</html>

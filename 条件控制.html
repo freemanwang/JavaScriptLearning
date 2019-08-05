@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--练习-->
+<script>
+    // var scores = new Array(52,64,88,34,26,93)
+    score = 88
+    document.write('<table style="border: 1px solid black;collapse: True">')
+    document.write('<tr><td>分数</td><td>评价</td></tr>')
+        lev = parseInt(score/10)
+        switch (lev) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+                document.write('<tr><td>' + score + '</td><td>不合格</td></tr>')
+                break
+            case 6:
+            case 7:
+            case 8:
+                document.write('<tr><td>' + score + '</td><td>合格</td></tr>')
+                break
+            case 9:
+            case 10:
+                document.write('<tr><td>' + score + '</td><td>优秀</td></tr>')
+                break
+        }
+        document.write('</table>')
+
+    // 有个很秀的做法,如下， case 后的表达式和 true 对应的上就执行
+
+    switch (true) {
+        case score > 60:
+            document.write('<p>合格</p>')
+            break
+
+        default:
+            document.write('<p>不合格</p>')
+
+    }
+
+
+//    if练习
+    person = {
+        'name' : 'Alice',
+        'gender' : 'female',
+        'age' : 18
+    }
+    if (person.age >= 18){
+        document.write('<p>已成年</p>')
+    }else {
+        document.write('<p>未成年</p>')
+    }
+    if (person.gender == 'female') {
+        document.write('<p>女性</p>')
+    }else {
+        document.write('<p>男性</p>')
+    }
+
+
+
+
+
+</script>
+</body>
+</html>

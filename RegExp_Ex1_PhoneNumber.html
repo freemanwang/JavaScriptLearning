@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-model="http://www.w3.org/1999/xhtml" xmlns:v-text="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>RegExp1</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <input type="text"  v-model:value="msg" @change="check" on placeholder="Input Phone Number">
+    <h3 type="text" contenteditable="false" v-text:value="chkRes" style="color:red;"></h3>
+</div>
+
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            msg:'',
+            chkRes:'待输入'
+
+        },
+        methods:{
+            check:function () {
+                // let msg = this.msg
+                reg = /^1[357][0-9]{9}$/
+                this.chkRes = reg.test(this.msg)
+                console.log(this.chkRes)
+            }
+        }
+    })
+    /*
+    * 写个正则表达式检测字符串是否是个合法手机号
+    * 手机号规则:
+    *   -1.第一位  1
+    *   -2.第二位  我只知道3,5,7,就当如此吧
+    *   -3.三位以后,任意9个数字
+    * */
+    reg = /^1^[357][0-9]{9}/
+
+</script>
+
+</body>
+</html>

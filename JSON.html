@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSON</title>
+</head>
+<body>
+<script>
+    /*
+    JSON 指的是 JavaScript Object Notation
+    JSON 是轻量级的数据交换格式
+    JSON 独立于语言
+    JSON 是“自描述的”且易于理解
+
+    JSON 语法规则数据为 键/值 对。
+        数据由逗号分隔。
+        大括号保存对象
+        方括号保存数组
+    * */
+
+    // JSON 数据 - 一个名称对应一个值JSON 数据格式为 键/值 对，就像 JavaScript 对象属性。
+    // 键/值对包括字段名称（在双引号中），后面一个冒号，然后是值.
+    // 注意，JSON 名称需要引号括起来。JavaScript 名称不需要。属性的话，可括可不括，看类型
+    //eg：  "name":'Alice'
+
+    //JSON 对象JSON 对象保存在大括号内。就像在 JavaScript 中, 对象可以保存多个 键/值 对：
+    jsonObj = {"name":'Alice', 'age':12}
+    text = JSON.stringify(jsonObj)
+    json2js = JSON.parse(text)
+    console.log(json2js,typeof json2js)        //{name: "Alice", age: 12} "object"
+    console.log(json2js.name,json2js.age)   //Alice 12
+//  转换为一个js对象，object，该object有2个属性，分别是name和age，值正确
+
+
+
+//    JSON 数组
+//     JSON 数组在方括号中书写。类似 JavaScript，数组能够包含对象。
+    jsonArr = {"person":[
+
+        {"name":'Alice', "age":12},
+        {'name':'Bob', "age":13},
+        {'name':'Carol', "age":12}
+    ]}
+
+    text = JSON.stringify(jsonArr)
+    console.log(text,typeof text)  //以string形式输出了
+
+    people = JSON.parse(text)
+    console.log(people,typeof people)   //类型是Object，里面有个叫person的属性，person是一个Arrary(3),
+    console.log(people.person[1].name,people.person[1].age) //Bob 13
+
+
+</script>
+</body>
+</html>

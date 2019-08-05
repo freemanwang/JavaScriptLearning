@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ES6</title>
+</head>
+<body>
+</body>
+</html>
+
+<script>
+    /*
+    * ES6新增内容
+    *   JavaScript let
+    *   JavaScript const
+    *   幂 (**)
+    *   默认参数值
+    *   Array.find()
+    *   Array.findIndex()
+    * */
+
+    //  1.  let   允许使用块作用域声明对象。还有，let声明的变量不会像var声明的提升
+    var x = 10;
+    // Here x is 10
+    {
+        let x = 2;
+        // Here x is 2
+    }
+    // Here x is 10
+
+
+    //  2.  const  和let一样可以使用块作用域，除此之外还有更多特性
+    //      const声明的变量是常量，不可被更改
+    //      const 变量必须在声明时赋值：
+    const PI = 3.1415926        //正确
+    // const gen2               这两行报错
+    // gen2 = 1.414
+
+    //    const 声明的对象，它不可被重新指向别的对象，但对象的属性可以更改
+    function Person(name=null,age=1){
+        this.name=name
+        this.age=age
+    }
+    const p1 = new Person('Alice',12)
+    console.log(p1)     //Person类的对象
+    console.log(p1.name,p1.age)     //Alice 12
+    //const 对象的属性是可以更改的
+    p1.name = 'Bob'
+    console.log(p1.name,p1.age)     //Bob 12
+    //但p1不能被重新赋值，不能指向一个新的对象
+    // p1 = new Person('Carol', 10)    //Uncaught TypeError:Assignment to constant variable.
+
+    //  3.  ** 幂运算，x ** y 和 Math.pow(x,y)相同
+    console.log(2**3)   //8，没啥好说的
+    console.log(Math.pow(2,3))  //8
+
+
+    //  4.  默认参数值    ES6允许函数参数具有默认值,和python操作一样，不说了
+
+
+    //  5.  Array.find(fun)  返回通过测试函数fun的第一个数组元素的值。
+    //       会将数组中元素逐一作为参数传入fun函数中
+    nums = [1,2,3,4,5,6,]
+    gt3 = function (value) {
+        return value > 3
+    }
+    first = nums.find(gt3)
+    console.log(first)     //4
+
+
+
+
+
+//  6. Array.findIndex()  返回通过测试函数的第一个数组元素的索引。
+//    注意，上面是返回元素的值，这里返回的是元素的索引。参数都是函数
+    firstIndex = nums.findIndex(gt3)
+    console.log(firstIndex)     //3
+    // console.log(nums.find(5))   报错，5不是函数
+
+
+
+/* 7.  新的数字属性
+     ES6 将以下属性添加到 Number 对象：
+        EPSILON
+        MIN_SAFE_INTEGER
+        MAX_SAFE_INTEGER
+*/
+    console.log('ε是：'+Number.EPSILON)   //2.220446049250313e-16  意义不大，基本用不到
+    console.log('JS最大的整数：'+Number.MAX_SAFE_INTEGER)   //9007199254740991
+    console.log('JS最小的整数：'+Number.MIN_SAFE_INTEGER)  //-9007199254740991
+
+
+/* 8.  新的数字方法
+    ES6 为 Number 对象添加了 2 个新方法：
+        Number.isInteger()          判断是否整数
+        Number.isSafeInteger()      判断是否可以精确表示为双精度数的整数
+*/
+
+
+/* 8.  新的全局方法
+    ES6 还增加了 2 个新的全局数字方法：
+        isFinite()      如果参数为 Infinity 或 NaN，则全局 isFinite() 方法返回 false。
+        isNaN()         如果参数是 NaN，则全局 isNaN() 方法返回 true。否则返回 false：
+*/
+    console.log(Infinity)   //就真的打印了  Infinity
+    console.log(Infinity > 9999999999999)   //true
+    console.log(isNaN('abc'))       //true
+
+
+//  9.  箭头函数（Arrow Function）
+//     箭头函数允许使用简短的语法来编写函数表达式。
+    //     不需要 function 关键字、return 关键字以及花括号。
+//     ES5,定义一个函数需要这样
+    var add1 = function (a,b) {
+        return a+b
+    }
+
+//    ES6,可以这样
+    const add2 = (a, b) => a+b
+
+    //2个方法都能正确执行出正确答案
+    console.log(add1(1,2))
+    console.log(add2(1,2))
+
+/*需要注意的特点：
+    箭头功能没有自己的 this。它们不适合定义对象方法。
+    箭头功能未被提升。它们必须在使用前进行定义。
+    使用 const 比使用 var 更安全，因为函数表达式始终是常量值。
+    如果函数是单个语句，则只能省略 return 关键字和花括号。因此，保留它们可能是一个好习惯。
+*
+* */
+const printList = (list) =>{
+        l = list.length
+        let i = 0
+        while (i < l){
+            console.log(list[i] + '')
+            i++
+        }
+    }
+    arr = [1,2,3,4,5]
+    printList(arr)
+
+
+</script>

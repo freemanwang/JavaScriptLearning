@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>显示鼠标的坐标</title>
+    <style>
+        #d1{
+            width: 800px;
+            height: 200px;
+            border: 1px solid black;
+        }
+        #d2{
+            width: 200px;
+            height: 100px;
+            border: 1px solid black;
+            font-size: 2em;
+        }
+    </style>
+</head>
+<body>
+    <div id="d1">
+    </div>
+    <br><br>
+    <div id="d2">
+        X:<span></span><br>
+        Y:<span></span>
+    </div>
+</body>
+<!--读取当前范围内,鼠标的坐标-->
+<script>
+    /*
+    * 事件对象:
+    *       -当事件的响应函数被触发时,浏览器都会将一个事件对象作为实参传进响应函数
+    *        在事件对象中封装了当前时间的一切信息;比如,鼠标坐标,键盘哪个按键被按下等
+    * */
+
+    var d1 = document.getElementById('d1')
+    var d2 = document.getElementById('d2')
+    d1.onmousemove = function (event) {
+        console.log(event)  //这里打印的是MouseEvent对象,里面有screenX,screenY,clientX,clientY等属性
+        let x = event.clientX
+        let y = event.clientY
+        show(x,y)
+    }
+    function show(x,y) {
+        let spans = document.getElementsByTagName('span')
+        spans[0].innerHTML = x
+        spans[1].innerHTML = y
+    }
+    
+</script>
+</html>

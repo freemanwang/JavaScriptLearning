@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Date</title>
+</head>
+<body>
+<script>
+    /*
+    * Date对象
+    *   -在JS中使用Date对象来表示一个时间
+    *
+    * */
+//    如果用构造函数直接创建Date对象，则会封装为当前时间
+    var d = new Date()
+    console.log(d)  //Sun Jun 02 2019 13:55:28 GMT+0800
+//  创建指定时间的时间对象
+//  用字符串做构造函数的参数，格式为 "年/月/日 时:分:秒"
+    var d1 = new Date('2019/02/01 12:00')
+    console.log(d1) //Fri Feb 01 2019 12:00:00 GMT+0800 (中国标准时间)
+
+//   Date 相关方法
+
+//  getDate()  获取当前对象的日期是几日
+    dindex = d.getDate()
+    console.log(dindex) //2   的确今天是6月2号
+
+
+//  getDay()   获取当前对象是周几，返回0-6的值
+    dday = d.getDay()
+    console.log(dday)   //0   原来chrome是把周日当每周第一天的啊
+
+
+//   getMonth()  猜得到，获取当前时间对象的月份，返回0-11的值
+    dmonth = d.getMonth()
+    console.log(dmonth) //5
+
+
+//  getFullYear()   获取年份
+    dyear = d.getFullYear()
+    console.log(dyear)  //2019
+
+
+//  同理，小时、分钟和秒数都能get到，而且用的是number类型返回的
+    dh = d.getHours()
+    dmin = d.getMinutes()
+    dsec = d.getSeconds()
+    console.log('现在时间是'+dh+':'+dmin+':'+dsec)//现在时间是14:5:48
+    console.log(typeof dh+':'+typeof dmin+':'+typeof dsec) //number:number:number
+
+
+//  getTime()   获取当前日期的时间戳，就是那个1970年后多少毫秒的，很大的数
+    time = d.getTime()
+    console.log('从格林威治1970年1月1日0:00:00至今过了 '+time+ 'ms.')
+//  从格林威治1970年1月1日0:00:00至今过了 1559455728554ms.
+
+
+//   Date.now()  获取当前的时间戳。
+//     和上面的区别在于，上面获得的是今天的时间戳，而这里获取的是当前时间戳
+//     难怪我上次用getTime() 来算代码执行直接是0，因为获取的都是同一天的时间戳
+    start = Date.now()
+    arr = new Array(1000)
+    for (var i = 0; i<arr.length;i++){
+        let j = 0
+        j++
+        console.log(j)
+    }
+    end = Date.now()
+    console.log('花费时间为：'+(end - start)+'ms')    //花了73ms，打印了1K次
+
+
+
+</script>
+</body>
+</html>

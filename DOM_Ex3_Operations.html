@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Operations</title>
+    <style>
+        body{
+            text-align: center;
+        }
+        table{
+            border: 1px solid black;
+            text-align: center;
+        }
+        .td{
+            height: 20px;
+        }
+        .name{
+            width: 80px;
+        }
+        .email{
+            width: 150px;
+        }
+        .salary{
+            width: 100px;
+        }
+        .del{
+            width: 60px;
+        }
+        #add{
+            border: 1px solid black;
+            display: inline-block;
+            padding: 10px;
+        }
+    </style>
+
+
+</head>
+<body>
+<table border="1" cellspacing="0" >
+    <tr>
+        <th class="name">Name</th>
+        <th class="email">Email</th>
+        <th class="salary">Salary</th>
+        <th class="del"></th>
+    </tr>
+    <tr>
+        <td class="name">Alice</td>
+        <td class="email">Alice@qq.com</td>
+        <td class="salary">10000</td>
+        <td class="del"><input type="button" class="delBtn" value="Delete"></td>
+    </tr>
+    <tr>
+        <td class="name">Bob</td>
+        <td class="email">Bob@qq.com</td>
+        <td class="salary">12000</td>
+        <td class="del"><input type="button" class="delBtn" value="Delete"></td>
+    </tr>
+    <tr>
+        <td class="name">Carol</td>
+        <td class="email">Carol@qq.com</td>
+        <td class="salary">9000</td>
+        <td class="del"><input type="button" class="delBtn" value="Delete"></td>
+    </tr>
+</table>
+
+<div id="add">
+    <h4>Add New Employee</h4>
+    <span>name:</span><input type="text" id="name" required placeholder="name"><br>
+    <span>email:</span><input type="text" id="email" required placeholder="email"><br>
+    <span>salary:</span><input type="text" id="salary" required placeholder="salary"><br>
+    <input type="button" id="addBtn" value="ADD">
+</div>
+
+<script>
+    var add = document.getElementById('addBtn')
+
+    add.onclick = function () {
+        var name = document.getElementById('name')
+        var email = document.getElementById('email')
+        var salary = document.getElementById('salary')
+        var table = document.getElementsByTagName('table')[0]
+        let tr = document.createElement('tr')
+        let ntd = document.createElement('td')
+        let etd = document.createElement('td')
+        let std = document.createElement('td')
+        let dtd = document.createElement('td')
+        ntd.innerHTML = name.value
+        ntd.className = 'name'
+        console.log(ntd.innerHTML)
+        tr.appendChild(ntd)
+        etd.innerHTML = email.value
+        etd.className = 'email'
+        console.log(etd.innerHTML)
+        tr.appendChild(etd)
+        std.innerHTML = salary.value
+        std.className = 'salary'
+        console.log(std.innerHTML)
+        tr.appendChild(std)
+        dtd.innerHTML = "<input type=\"button\" class=\"delBtn\" value=\"Delete\">"
+        dtd.className = 'del'
+        tr.appendChild(dtd)
+        console.log(tr)
+        table.appendChild(tr)
+    }
+
+    var del = document.getElementsByClassName('delBtn')
+    for (let i=0; i<del.length; i++){
+        del[i].onclick = function () {
+            let flag = confirm("Are you sure to delete?")
+            console.log(del[i])
+            console.log(del[i].parentNode)
+            console.log(del[i].parentNode.parentNode)
+            console.log(del[i].parentNode.parentNode.parentNode)
+            if (flag){
+                del[i].parentNode.parentNode.parentNode.removeChild(del[i].parentNode.parentNode)
+            }
+        }
+    }
+</script>
+
+</body>
+</html>

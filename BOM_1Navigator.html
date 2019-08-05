@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BOM</title>
+</head>
+<body>
+<script>
+    /*
+    * BOM   浏览器对象模型
+    *   -在BOM中可以通过JS来操作浏览器
+    *   -在BON中为我们提供了一组对象,用来完成对浏览器的操作
+    *   -BOM对象
+    *       -Window     代表的是整个浏览器窗口,同时window也是网页中的全局对象
+    *       -Navigator  代表当前浏览器的信息,通过该对象可以识别不同的浏览器
+    *       -Location   代表当前浏览器的地址栏信息,通过它可以获取地址栏信息,或者跳转页面
+    *       -History    代表浏览器的历史记录,可以通过该对象操作浏览器历史
+    *                       由于隐私考虑,该对象不能获取到具体历史信息,只能操作向前或向后翻页
+    *                       而且该操作只在当此访问时有效(关了再开是新history)
+    *       -Screen     代表用于的屏幕信息,通过该对象可以获取用户的显示器相关信息(多移动端用)
+    *
+    *       这些BOM对象是全局对象,随时可以通过对象名window进行访问
+    *       PS:BOM对象在浏览器做window对象的属性保存,可以通过window对象来使用,也可以直接用
+    *
+    * */
+
+    console.log(window)  //Window 全局对象,触手可及
+    console.log(window.navigator) //Navigator
+    console.log(location)  //Location
+
+
+//  Navigator
+//        有属性usrAgent,其属性值为一字符串,内部标识了浏览器类型
+    console.log(navigator.userAgent)    //描述浏览器信息的字符串,下面是chrome运行结果
+//    Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36
+
+//    通过 userAgent 检验运行在哪个浏览器
+    ua = navigator.userAgent
+    if (/firefox/i.test(ua)) {
+        console.log('这里是火狐')
+    }else if((/chrome/i.test(ua)&&!/edge/ig.test(ua))){
+        console.log('这里是Chrome')
+    }else if (/msie/ig.test(ua)){//IE10以下可以识别出,因为都有msie这个信息.IE11就是EDGE
+        console.log('这里是IE') //IE11里将微软和IE等标识都去除了,无法判断,在EDGE中结果是Chrome
+    }else if (/edge/ig.test(ua)){
+        console.log('这里是MS-EDGE')
+    }
+
+
+
+
+
+</script>
+
+</body>
+</html>

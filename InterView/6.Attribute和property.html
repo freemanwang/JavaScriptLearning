@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attribute和property</title>
+</head>
+<body>
+<h2 id="h2" class="h2" data-name="dataName">这是H2</h2>
+<script>
+    var h2 = document.getElementById('h2')
+    t1 = h2.getAttribute('data-name')
+    console.log(t1)
+    t2 = h2.getAttribute('id')
+    console.log(t2)
+    setTimeout(function () {
+        h2.setAttribute('style','color:red')
+    },2000)
+</script>
+</body>
+</html>

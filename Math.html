@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Math</title>
+</head>
+<body>
+<script>
+    /*
+       Math
+           -Math对象包含了数学方法
+           -Math和其他对象(Arrary，Date等)不同，不是构造函数，它是一个工具类，不需要构造对象
+
+
+   */
+    console.log(Math.PI)
+
+//  abs(x)      返回x的绝对值
+//  ceil(x)     对x向上取整
+//  floor(x)    对x向下取整
+//  round(x)    对x按四舍五入取整
+    console.log(Math.abs(-3),Math.ceil(-1.5),Math.floor(2.3),Math.round(3.333))//3 -1 2 3
+
+//  random()    生成(0,1)之间的随机数,注意，0和1都是取不到的
+//  max(a,b,c,d,e,f...)     获取多个数中最大值
+//  min(a,b,c,d,e,f...)     获取多个数中最小值
+//  sqrt(x)          返回 x 的平方根
+//  pow(x,y)        返回 x 的 y 次方
+
+    var i = 0
+    while(i<10){//生成10个1-6的随机数
+        console.log(Math.ceil((Math.random()*6)))
+        i++
+    }
+</script>
+
+
+</body>
+</html>

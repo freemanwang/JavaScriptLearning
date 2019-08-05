@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>冒泡</title>
+    <style>
+        div{
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<div id="d1">
+    <p id="p1">激活</p>
+    <p id="p2">取消1</p>
+    <p id="p3">取消2</p>
+    <p id="p4">取消3</p>
+    <div id="d2">
+        <p id="p5">p5</p>
+    </div>
+</div>
+<body>
+<script>
+    var p1 = document.getElementById('p1')
+    var p5 = document.getElementById('p5')
+    var d1 = document.getElementById('d1')
+    var d2 = document.getElementById('d2')
+
+    // var body = document.body
+
+    //stopPropagation()            阻止冒泡和捕获
+    //stopImmediatePropagation()   阻止冒泡和捕获，以及阻止自身事件
+
+    //代理
+    function bindEvent(elem, type, selector, fn,) {
+        //elem是需要绑定事件的元素，type是何时触发事件，selector是被代理的元素的类型，fn是事件处理函数
+        //如果不设置selector，则第四个参数为空，第三个是fn
+        if (fn == null){
+            fn = selector
+            selector = null
+        }
+        elem.addEventListener(type,function (e) {
+            let target
+            if (selector){
+                target = e.target
+                console.log(target)
+                if (target.matches(selector)){
+                    fn.call(target, e)
+                }
+            }else {
+                fn(e)
+            }
+        })
+
+    }
+    bindEvent(p1, 'click',function (e) {
+        e.stopPropagation()
+        alert('激活')
+    })
+    bindEvent(d1, 'click', 'p',function (e) {
+        console.log(this.innerHTML+'-'+this.nodeName)
+    })
+    bindEvent(d1, 'click',function (e) {
+        console.log('div clicked')
+    })
+    bindEvent(p5,'click',function (e) {
+        e.stopImmediatePropagation()
+        console.log('p5 clicked')
+    })
+
+//    上述总结：
+    //    1. p1和p5不会触发d1的点击事件，p2,p3,p4在触发自身代理的同时会冒泡触发d1的点击事件；区别就在于阻止了冒泡；
+//        2.
+</script>
+
+</body>
+</html>

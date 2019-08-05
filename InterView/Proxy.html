@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="d1">
+    <p id="p1">11</p>
+    <p id="p2">22</p>
+    <p id="p3">33</p>
+    <p id="p4">44</p>
+    <p id="p5">55</p>
+</div>
+<script>
+    var d1 = document.getElementById('d1')
+    d1.addEventListener('click',function (e) {
+        target = e.target
+        if (target.matches('p')) {
+
+            console.log(target)
+            alert(target.innerHTML+target.getAttribute('id'))
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>浮动排版</title>
+    <style>
+        html *{
+            margin: 0;
+            padding: 0;
+        }
+        .layout article div{
+            min-height: 100px;
+        }
+        .center{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<h2>高度已知，写出3栏布局，左右各3--px，中间自适应</h2>
+<h2>PS:高度不限定时，只有flex和table能自适应</h2>
+
+
+<h3>浮动：优点：兼容性好（老属性了）；缺点：清浮动处理不好页面可能会乱，因为脱离了文档流</h3>
+    <section class="layout float">
+        <style media="screen">
+            .float  .left{
+                float: left;
+                width: 300px;
+                background: red;
+            }
+            .float .right{
+                float: right;
+                width: 300px;
+                background: blue;
+            }
+            .float .center{
+                background: yellow;
+                text-align: center;
+            }
+            .clear{
+                clear: both;
+            }
+        </style>
+        <article class="letf-right-center">
+            <div class="left"></div>
+            <div class="right"></div>
+            <div class="center">
+                <h1>浮动解决方案</h1>
+                这里是自适应的中间部分
+                <p>增加高度</p>
+                <p>增加高度</p>
+                <p>增加高度</p>
+                <p>增加高度</p>
+                <p>增加高度</p>
+            </div>
+            <p class="clear"></p>
+        </article>
+    </section>
+
+
+
+    <br><br>
+<h3>绝对定位：好处：快捷，没有浮动的问题；缺点：脱离文档流，子元素也会脱离，实用性差</h3>
+    <section class="layout absolute">
+        <article class="left-center-right">
+            <style>
+                .absolute{
+                    height: 100px;
+                    position: relative;
+                }
+                .absolute .left-center-right>div{
+                    position: absolute;
+                }
+                .absolute .left{
+                    left: 0;
+                    width: 300px;
+                    background: red;
+                }
+                .absolute .center{
+                    left: 300px;
+                    right: 300px;
+                    background: yellow;
+                }
+                .absolute .right{
+                    right: 0;
+                    width: 300px;
+                    background: blue;
+                }
+            </style>
+            <div class="left"></div>
+            <div class="center">
+                <h1>绝对定位解决方案</h1>
+                这里是自适应的中间部分
+                <p>增加高度</p>
+                <p>增加高度</p>
+                <p>增加高度</p>
+                <p>增加高度</p>
+                <p>增加高度</p>
+            </div>
+            <div class="right"></div>
+        </article>
+    </section>
+
+
+<br>
+<h3>flex-box布局：解决了上面2种的问题，现在常用的方法</h3>
+    <section class="layout flexbox">
+        <style>
+            .flexbox{
+                margin-top: 20px;
+            }
+            .flexbox .left-center-right{
+                display: flex;
+                flex-direction: row;
+            }
+            .flexbox .left{
+                width: 300px;
+                background: red;
+            }
+            .flexbox .center{
+                flex: 1;
+                background: yellow;
+            }
+            .flexbox .right{
+                width: 300px;
+                background: blue;
+            }
+
+        </style>
+        <article class="left-center-right">
+            <div class="left"></div>
+            <div class="center">
+                <h1>flex-box解决方案</h1>
+                这里是自适应的中间部分
+                <p>增加高度</p>
+                <p>增加高度</p>
+                <p>增加高度</p>
+                <p>增加高度</p>
+                <p>增加高度</p>
+            </div>
+            <div class="right"></div>
+        </article>
+    </section>
+
+
+<h3>table布局：有些老，但能用，现在不打算深究这个</h3>
+    <section class="layout table">
+        <style>
+            .table{
+                margin-top: 20px;
+            }
+            .table .left-center-right{
+                width: 100%;
+                display: table;
+                height: 100px;
+            }
+            .table .left-center-right>div{
+                display: table-cell;
+            }
+            .table .left{
+                width: 300px;
+                background: red;
+            }
+            .table .center{
+                background: yellow;
+            }
+            .table .right{
+                width: 300px;
+                background: blue;
+            }
+        </style>
+        <article class="left-center-right">
+            <div class="left"></div>
+            <div class="center">
+                <h1>table布局解决方案</h1>
+                这里是自适应的中间部分
+                <p>增加高度</p>
+                <p>增加高度</p>
+                <p>增加高度</p>
+                <p>增加高度</p>
+                <p>增加高度</p>
+            </div>
+            <div class="right"></div>
+        </article>
+    </section>
+
+
+<h3>grid布局（网格布局）：通过标准化可以做很多复杂的事但代码量不大，不一定要用框架了。</h3>
+    <section class="layout grid">
+        <style>
+            .grid{
+                margin-top: 20px;
+            }
+            .grid .left-center-right{
+                display: grid;
+                width: 100%;
+                grid-template-rows: 100px;
+                grid-template-columns:300px auto 300px;
+            }
+            .grid .left{
+                background: red;
+            }
+            .grid .center{
+                background: yellow;
+            }
+            .grid .right{
+                background: blue;
+            }
+        </style>
+        <article class="left-center-right">
+            <div class="left"></div>
+            <div class="center">
+                <h1>grid布局解决方案</h1>
+                这里是自适应的中间部分
+                <p>增加高度</p>
+                <p>增加高度</p>
+                <p>增加高度</p>
+                <p>增加高度</p>
+                <p>增加高度</p>
+            </div>
+            <div class="right"></div>
+        </article>
+
+    </section>
+
+</body>
+</html>

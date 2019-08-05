@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+/*
+new Promise(function(){...}).then(function (result) {...}).catch(function (reason) {...});
+*/
+    var p1 = new Promise(function (a,b) {
+        var  t = Math.random()
+        t *= 5
+        console.log('start')
+        console.log(a)
+        console.log(t+'s后输出下一个数')
+        console.log(b)
+        console.log('end')
+    }).then(function (result) {
+        console.log("success"+result)
+    }).catch(function (reason) {
+        console.log("fail"+reason)
+    })
+
+
+function a () {
+    for (var i = 0; i < 5; i++) {
+        (function f(i) {
+            this.i = i
+            setTimeout(() => {
+                console.log(i)
+            }, 0)
+            console.log(this.i)
+        })(i)
+    }
+}
+
+a()
+</script>
+
+</body>
+</html>

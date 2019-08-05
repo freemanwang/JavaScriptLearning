@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ES6</title>
+</head>
+<body>
+<script>
+    let a= 0;
+    let b= 100;
+    console.log("a="+a+";b="+b);
+    [a, b] = [b, a];
+    console.log('解构赋值后：');
+    console.log("a="+a+";b="+b);
+    let x = 1;
+    let y = 2;
+    [x, y] = [y, x];
+    console.log(x);//2
+    console.log(y);//1
+
+</script>
+</body>
+</html>

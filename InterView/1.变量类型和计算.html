@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>变量类型和计算</title>
+</head>
+<body>
+<script>
+    /*
+    * 1.JS中使用typeof能得到哪些类型    考JS数据类型
+    * 2.何时使用 === 何时使用 ==
+    * 3.JS中有哪些内置函数
+    * 4.JS变量按照存储方式区分为哪些类型，并描述其特点
+    * 5.如何理解JSON
+    *
+    *
+    *
+    * */
+
+//1.数据类型
+//  1.1 值类型
+    var a = 100
+    var b = a
+    a = 200
+    console.log(b) //100
+
+//  1.2 引用类型 (数组，对象，函数)
+    var c = {age:20}
+    var d = c
+    d.age = 21
+    console.log(c.age) //21
+
+//  1.3 typeof 结果   (我没想到undefined和function)
+    console.log(typeof undefined)    //undefined
+    console.log(typeof 'abc')       //string
+    console.log(typeof 123)         //number
+    console.log(typeof true)        //boolean
+    console.log(typeof {})          //object
+    console.log(typeof [])          //object
+    console.log(typeof null)        //object
+    console.log(typeof console.log) //function
+//    总结：typeof 只能区分值类型的详细类型，比如前4行
+//    typeof 针对引用类型无力，最后四行全是引用类型，只能区分出函数，剩下全是object
+//    函数在JS中很关键，因此必须能识别出函数；除此之外，其他的引用类型就辨析不出了
+
+//2. 变量计算-针对值类型的强制类型转换（引用类型不算）
+//  2.1 字符串拼接
+    100 + 10    //110
+    100 + '10'  //'10010'
+//  2.2 == 运算符（会自动类型转换）
+    100 == '100'  //true    字符串'100'会转换成number100
+    0 == ''  //true     0和空字符串都会转换成false，因而相等
+    null == undefined  //true   两个都转false
+//  上面3行如果用 === 就全false
+//  if ()   //括号内也会执行类型转换
+//  如何判断一个变量会被当成true还是false，通过2次取反
+    var v = 100          //true
+    console.log(!!v)    //true
+
+//3.何时使用 === 和 ==
+//  仅当如下情况时用 == ，其他全部用 ===
+    var obj = {b:10}
+    if (obj.a == null){
+    //    这里相当于 obj.a === null || obj.a ===undefined
+    //    jquery源码中推荐的写法
+        alert(1)
+    }else {
+        alert(2)
+    }
+// if判别，什么会被转成false：0, NaN, '', null, undefined, false
+//  === 可以避免一些自动类型转换，以及对引用类型的支持（除了比值还比地址）
+
+//4.JS中有哪些内置函数  (数据封装类对象)
+    Object
+    Array
+    Boolean
+    Number
+    String
+    Function
+    Date
+    RegExp
+    Error
+
+
+//5.JS变量按存储方式分2种类型
+//    值类型的变量会一一存在内存中，赋值就是实际给其数值，修改不会影响其他
+//    引用类型可能好几个变量公用内存中同一对象，对其赋值是给其一个指针，并不是真正的值的拷贝；公用的引用类型的修改是相互影响的
+//    5.1值类型
+    var value = 100
+//    5.2引用类型
+    var obj = {name:'Alice'}
+
+
+//6.JSON （JSON就是一个JS对象而已，有时也可以看作一种数据格式）
+//    常用的方法就2个方法
+    jstr = JSON.stringify({a:10, b:20})
+    jobj = JSON.parse('{"a":10, "b":20}')
+    console.log(jstr,typeof jstr)   //{"a":10,"b":20} string
+    console.log(jobj,typeof jobj)   //{a: 10, b: 20} "object"
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    JS的基本数据结构:
+        String
+        Number
+        Boolean
+        Null
+        Undefined
+        除了不是基本类型的数据以外,都是对象
+    对象是一种复合数据类型,对象中可以保存不同数据类型的属性,用键值对保存
+    对象的分类
+        -内建对象
+            -由ES标准定义的对象,在任何ES的实现中都可以用
+            -比如 Math String Number Object
+        -宿主对象
+            -由JS的运行环境提供的对象，目前来讲主要指由浏览器提供的对象
+            -比如DOM、BOM
+        自定义对象
+            -由开发人员自己创建的对象
+    */
+    document.write('<h1>Hello</h1>')
+    //使用new关键字调用的函数，是构造函数constructor
+    var obj = new Object()
+//    添加属性 obj.attr = attribute
+    obj.name = 'Alice'
+//    读取对象中没有的属性，不会报错，而是返回undefined
+    console.log(obj.name,obj.age)
+//    删除对象属性，delete
+    delete obj.name
+
+    //    修改对象属性操作如添加属性，覆盖而已
+    console.log(obj.name)
+
+//    对属性名，不强制要求遵守规范，但最好遵守
+//    如果要用特殊属性名，不能采用 . 的方式，用 Object['attr']更好，读取也这也
+    obj['123'] = '123'
+    // obj.234 = 234   会报错
+    console.log(obj['123'])
+
+//  js的属性值可以是任意数据类型，甚至也可以是一个对象
+    obj2 = new Object()
+    obj.test = obj2
+    obj2.name = 'xyz'
+    console.log(obj.test)
+    obj.name = 'abc'
+
+//    in 运算符，检查一个对象中是否有指定的属性，有则返true，否则false
+    console.log('name' in obj)
+    console.log('age' in obj)
+
+//    更清晰的对象创建方式
+//    属性名可以加 '' 也可以不加，建议不加；属性用key-value键值对来给
+//    最后一个属性后不要加  ,   因为有些浏览器会报错
+    var person = {
+        name :'aaa',
+        age:12,
+        obj:{name:'bbb'}
+    }
+    console.log(person)
+
+</script>
+</body>
+</html>

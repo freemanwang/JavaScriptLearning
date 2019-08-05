@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>flex动态布局</title>
+    <style>
+        #content{
+            display: flex;
+            flex-direction: row;
+            flex-grow: 1;
+            flex-shrink: 0.8;
+            flex-align: center;
+            flex-wrap: wrap;
+            border: 1px solid blue;
+            position: absolute;
+            width: 60%;
+            height: 80%;
+            -moz-box-align: center;
+        }
+        #content div{
+            width: 30%;
+            min-width: 150px;
+            max-width: 450px;
+            border: 1px solid red;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="content">
+        <div id="d1">DIV1</div>
+        <div id="d2">DIV2</div>
+        <div id="d3">DIV3</div>
+        <div id="d4">DIV4</div>
+        <div id="d5">DIV5</div>
+        <div id="d6">DIV6</div>
+        <div id="d7">DIV7</div>
+        <div id="d8">DIV8</div>
+        <div id="d9">DIV9</div>
+        <div id="d10">DIV10</div>
+    </div>
+</body>
+</html>

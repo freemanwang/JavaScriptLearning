@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件处理</title>
+</head>
+<body>
+<button id="bt1">Button1</button>
+<button id="bt2">Button2</button>
+<script>
+/*  1. 通用事件绑定
+     语法：element.addEventListener(event, function, useCapture)
+            event:  事件
+            function:  处理函数
+            usrCapture：true就捕获，false就冒泡
+*/
+    var bt1 = document.getElementById('bt1')
+
+    bt1.addEventListener('click',function (event) {
+        //事件函数第一个参数是事件，e或event都行，自己定义
+        //可用该参数阻止冒泡event.stopPropatation，阻止默认操作e.stopDafault等
+        console.log('clicked')
+    })
+//    上面这样写，挺麻烦的
+//    自定义函数，提供些复用性
+    function bindEvent(elem, type, fn,) {
+        //elem是需要绑定事件的元素，type是何时触发事件，fn是事件处理函数
+        elem.addEventListener(type,fn)
+    }
+    function alertClicked() {
+        alert('clicked')
+    }
+    var bt2 = document.getElementById('bt2')
+    bindEvent(bt2,'click',alertClicked)
+
+
+
+
+
+</script>
+
+</body>
+</html>

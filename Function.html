@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    * 函数
+    *   -函数也是对象
+    *   -函数对象中可以封装一些功能（代码），需要时可以执行。而普通对象只是容器
+    * */
+    //创建一个函数对象 new Function()
+    //可以将要封装的代码以String传给构造函数
+    //这种方法在开发中几乎不用
+    var fun = new Function("console.log(\'fun函数执行了\');")
+    fun()
+
+//  一般都这么玩
+    function fun2() {
+        console.log('fun2函数执行了')
+    }
+
+    //这也也可以，虽然不如上面的方法多，但也是会用的方法
+    var fun3 = function () {
+        console.log("匿名函数fun3执行了")
+    }
+
+    function fun4(a, b) {
+        console.log('a+b='+(a+b))
+    }
+    fun4(1,2)
+    //调用函数时解析器不会检查实参的类型，所以编写时需要注意参数合法与否
+    //同样，也不会检查实参的数量.
+    //实参数量多了不会被用到所以没影响；不够的话，对应的形参将是undefined
+    fun4(1,'abc')//1abc
+    fun4(2,'abc',4,5,'xyz')//2abc
+    fun4(2) //NaN
+    fun4('abc') //a+b=abcundefined
+
+//  return 后不跟内容，返回的是undefined，不写return也返undefined
+//    alert() 返回的也是undefined
+//     function isEven(num) {
+//         if (num%2 == 0)
+//             return true
+//         else
+//             return false
+//     }
+    function isEven(num) {
+        return num%2==0
+    }
+    // console.log(isEven(5))
+
+
+    //下面是一个   立即执行函数，不需调用会自行执行，且只会执行一次
+    //        注意，外面没包一个 () 时，会报错，最后没跟()不会执行
+    // (function (){alert('匿名函数执行了')});
+    (function () {
+        console.log('abc111')
+    })()
+
+
+//    补充
+//    函数可以做为对象的属性，如果函数作为一个对象的属性，那么称之为对象的方法
+//    调用这个函数就说调用对象的方法
+//    但实际上它们只是名称上的区别，别的没任何区别
+    person = {
+        name:'Alice',
+        sayhello:function (){
+            console.log("你好我是"+this.name);
+        }
+    }
+    person.sayhello()
+
+
+//  this相关内容
+//  函数作为对象， 也是有自己的方法的。
+//  说起来有点绕口，类比的想，Array对象有sort()、splice()方法，函数也有自己类的方法
+
+//  call() 和 apply()
+//  在调用call()和apply()时，可以将一个对象指定为第一个参数,此时这个对象将会成为函数执行时的this
+
+    //对call(): 可以修改第一参数，在第一个参数后可跟着继续传递实参
+    //对applu():也可以修改第一参数，但之后的参数，需要封装的一个数组中统一传递
+    function fun5(a,b) {
+        console.log('fun4函数执行，调用者是'+this)
+        console.log('a='+a+',b='+b)
+    }
+    obj = {name:'obj'}
+    //下面三句，都能调用fun函数,但调用者不同，不改变传入的第一个参，就是浏览器调用，那么
+    //this就是window；注意apply()和call()可以修改传入的第一个对象,并且这里必须填。
+    fun5.call(obj,1,9) //fun4函数执行，调用者是[object Object] a=1,b=9
+    fun5.apply(obj,[2,8]) //fun4函数执行，调用者是[object Object] a=2,b=8
+    fun5(3,7)  //fun4函数执行，调用者是[object Window] a=3,b=7
+//  注意，在apply()中，尝试不给调用对象，就把[2,8]作为this了，所以，第一位不能空
+
+//  this的情况：
+//      1.以函数形式调用时，this永远都是window。因为是浏览器调用嘛
+//      2.以方法形式调用时，this是调用方法的对象
+//      3.以构造函数的形式调用时，this是新创建的对象
+//      4.使用call和apply调用时，this是指定的对象
+
+
+
+/*  参数相关
+    在调用函数时，浏览器每次都会传递进2个隐含的参数：
+        1.函数的上下文对象this
+        2.封装实参的对象 arguments
+            -arguments是一个类数组对象（类就是不是），它可以通过索引来操作数据，
+                也可以获得长度（实参个数）
+            -arguments.length 可以获取实参长度
+            -即使不定义形参，也可以通过arguments来使用实参，就是麻烦了点
+                arguments[0]  第一个实参
+                arguments[1]  第二个实参
+                ............
+            -arguments有一个属性叫做callee
+                这个属性对应一个函数对象，就是当前正指向的函数的对象
+ */
+    function fun6() {
+        console.log(arguments,arguments.length)  //打出一个对象，类是Aruguments，
+        // __proto__：Object
+        console.log(Array.isArray(arguments))   //false
+        console.log(arguments.callee)
+    }
+    fun6(1,2)   //length是2
+//    callee把函数代码全打印出来了
+
+
+
+
+</script>
+<!--这样默认是不出现滚动条的，div原本不可做输入的，但通过设置contenteditable为true可实现接受输入-->
+<!--通过设置max-height，可以实现超过最大高度时出现滚动条-->
+<div id="inArea" contenteditable="true" style="border: 0.5px solid darkgray;width: 400px;min-height:200px;max-height:400px;background-color: darkgrey;overflow-y: auto;overflow-x: hidden">
+</div>
+</body>
+</html>

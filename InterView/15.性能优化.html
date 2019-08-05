@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>性能优化</title>
+</head>
+<body>
+<script>
+    /*
+    * 性能优化原则
+    *   多用内存、缓存，少I/O，少网络请求
+    *
+    * 加载资源优化
+    *   1.静态资源的压缩合并
+    *       多个资源可以放在一起，一个请求搞定
+    *       a.js  b.js  c.js  ==>  abc.js
+    *   2.静态资源缓存
+    *       没变化的资源，就不要去再请求了，直接用缓存里的。
+    *       通过连接名称控制缓存；当内容改变时连接名称才改变。
+    *       a1.js;10天后有变动，名称改为a2.js，此时重新请求；之前用缓存本地的a1.js
+    *   3.使用CDN让资源加载更快
+    *       CDN的全称是Content Delivery Network，即内容分发网络。CDN是构建在网络之上的内容分发网络，依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。
+    *   4.使用SSR后端渲染，数据直接输出到HTML
+    *       Vue React 提出这样的概念；jsp，php，asp都属于后端渲染（比如php把html代码输出至页面；而非先html打印出页面再ajax获取数据）
+    *
+    *
+    * 渲染优化
+    *   1.CSS放前面，JS放后面
+    *       理由之前讲过了
+    *   2.懒加载(图片懒加载、下拉加载更多)
+    *       懒加载(Load On Demand)是一种独特而又强大的数据获取方法,它能够在用户滚动页面的时候自动获取更多的数据,而新得到的数据不会影响原有数据的显示,同时最大程度上减少服务器端的资源耗用。
+    *   懒加载实例：
+    *       <img id="img1" src="preview.png" data-realsrc="abc.png" >
+    *   这里JS：
+    *       var img1 = document.getElementById('img1')
+    *       img1.src = img1.getAttribute('data-realsrc')
+    *   总结：先用公办的预设图片把页面刷出来，再通过DOM操作修改图片src为实际图片的；这个实际使用中很常见。可以加快页面渲染速度。
+    *
+    *   3.减少DOM操作，对DOM查询做缓存
+    *       这个之前了解过。
+    *   4.减少DOM操作，多个操作尽量合并在一起执行
+    *       比如我需要插入10个li，那能不能先把10个li组合成一个片段（使用一个特殊元素），最后一次插入；而非10次DOM操作的插入。
+    *       DocumentFragment，文档片段接口，表示一个没有父级文件的最小文档对象,它被作为一个轻量版的 Document 使用。不影响DOM树。
+    *       var frag = document.createDocumentFragment()
+    *       for (let i=0; i<10; i++){
+    *           frag.appendChild(lis[i])
+    *       }
+    *       inertNode.appendChild(frag)
+    *
+    *   5.事件节流
+    *       减少事件触发。比如原本设计输入一个字符触发一次事件(监控keyup)，但现在人打字很快，可以设置成100ms没有再按下按键时才触发事件。这样能减少一些事件处理。
+    *   6.尽早执行操作(如DOMContentLoaded，不等图片视频加载完就执行操作)
+    *       之前讲window.onload和DOMContentLoaded时的内容，就是不需要等一些加载的慢的元素
+    * */
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Accelerate</title>
+</head>
+<body>
+<p id = 'dom'>Hello</p>
+
+<div class="d1"></div>
+<div class="d1"></div>
+<div class="d1"></div>
+<div class="d1"></div>
+<div class="d1"></div>
+<div class="d1"></div>
+<div class="d1"></div>
+<div class="d1"></div>
+<div class="d1"></div>
+<div class="d1">Target DIV</div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<script>
+    /*
+    1.for 循环优化
+        编程经常会用到循环。
+        循环每迭代一次，循环中的每条语句，包括 for 语句，都会被执行。
+        能够放在循环之外的语句或赋值会使循环运行得更快。
+    */
+    arr = new Array(1000)
+    var i
+    var date = new Date()
+    console.log(arr.length)
+    console.time('bad')
+    for (i = 0; i < arr.length; i++) {
+        t = arr[i]
+    }
+    console.timeEnd('bad')
+
+    console.time('good')
+    i = 0
+    l = arr.length
+    for (i = 0; i < l; i++) {
+        t = arr[i]
+    }
+    console.timeEnd('good')
+//arr长度10的时候，差代码4.15ms；好代码3.75ms，差距不大，但可预见数据够大时，差距会明显
+//  把arr长度设为1000后，结果比较迷，执行了几次，最快的时候快了近0.5ms，有时又几乎一样，
+    //  甚至出现了一次好代码慢的情况，但这是仅1次的特例，pass
+//    结论：这个优化是有效的，应该在数据足够量大或并发进程多的时候明显。
+
+
+//   2. 减少DOM访问
+//       与java变量相比，访问DOM的效率很慢
+//       并不是说尽量避免DOM操作，是说需要经常用的DOM对象，获取后最好保存到一个变量里
+//       然后后续的多次使用它就通过变量访问，别再DOM了
+    var a = 'Hello'
+    console.time('variable')
+    console.log(a)
+    console.timeEnd('variable')
+
+    console.time('dom')
+    console.log(document.getElementById('dom').innerText)
+    console.timeEnd('dom')
+//variable: 0.23193359375ms
+//dom: 2.467041015625ms
+//差距天差地别，事实证明这个非常必要
+
+//  3.同样的，做DOM操作的时候，减少DOM的规格，有助于性能提升
+    console.time('small')
+    console.log(document.getElementsByClassName('d1').length)
+    console.timeEnd('small')
+
+    console.time('big')
+    console.log(document.getElementsByTagName('div').length)
+    console.timeEnd('big')
+//  前者数据集10，后者20.
+//     前者比后者快,快的不多,多则0.2ms,少则0.05ms,同理,问题在数据集小
+
+
+//  4. 避免不必要的变量
+//     意思就是,不常用的,比如只用一次的,就别建个变量了;否则没清除的话,占内存
+
+
+//  5. 将JS放在页面底部,使页面先加载,再加载脚本
+//        浏览器在下载脚本时，会阻塞其他的渲染和下载。因此，可以把JS放在最后下载，先把页面显示出来
+
+
+//  6. 尽量避免使用with（严格模式不允许with，虽然不知道with是什么）
+
+
+
+
+</script>
+</body>
+</html>

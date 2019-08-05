@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    * 使用工程方法创建的对象，用的都Object的构造函数
+    * */
+    function creatPerson(name,age,gender) {
+        var obj = new Object()
+        obj.name = name
+        obj.age = age
+        obj.gender = gender
+        obj.sayHello = function () {
+            console.log('Hello, I am ' + this.name)
+        }
+        return obj
+    }
+
+    function creatDog(name) {
+        var obj = new Object()
+        obj.name = name
+        obj.dogBark = function () {
+            console.log('WWWW')
+        }
+        return obj
+    }
+    var p1 = creatPerson('Alice', 12, 'Female')
+    // p1.sayHello()
+    console.log(p1)
+    var d1 = creatDog('牡丹')
+    // d1.dogBark()
+    console.log(d1)
+    // d1.__proto__ = p1
+
+    d1.sayHello()
+    //上面工厂创建的都是p1和d1都是Object类的实例对象object，没法从字面分辩谁是谁
+
+    //构造函数和普通函数的区别在于调用方式不同
+    //  -普通函数直接调用
+    //  -构造函数需要用 new  关键字调用
+
+    /*
+    * 构造函数执行过程
+    *   1，立即创建一个新对象
+    *   2.将新建的对象设置为函数中的this
+    *   3.逐行执行函数中的代码
+    *   4.将新建的对象做返回值返回
+    *
+    * 使用同一个构造函数创建的对象成为一类对象，也将一个构造函数称为一个类
+    *   我们通过一个构造函数创建的对象，称为该类的实例
+    *
+    * this 的知识点：
+    *   1.当以函数的形式调用时，this是window
+    *   2.当以方法的形式调用时，谁调用方法谁就是this
+    *   3.当以构造函数的形式调用时，this就是新建的那个对象
+    * */
+
+
+    function Person(name) {
+        this.name = name
+        this.sayName = function () {
+            console.log('My name is '+this.name)
+        }
+    }
+    p3 = new Person('Alice')
+    console.log(p3) // 打印出来的是 Person，而非 Object
+    p3.sayName()    //My name is Alice
+    console.log(p3 instanceof Person)   //true
+    console.log(p3 instanceof Object)   //true
+
+//  Person有个问题，这个构造函数会把syaName()创建很多次，有多少个对象就执行多少次，但实际上并不需
+//  要执行这么多次，因为对所有该类的实例对象来说，sayName()都一样的，无非参数的this.name不同
+//  因此我们可以把sayName()放在全局作用域，然后对象调用之即可
+
+    //但是将函数定义在全局作用域，污染了全局作用域的命名空间，而且定义在全局也不安全
+    //这个问题有更好的解决办法，在Prototype中叙述
+    function sayName() {
+        console.log("Ny name is "+this.name)
+    }
+    function Person(name) {
+        this.name = name
+        this.sayName=sayName
+    }
+
+    p4 = new Person('Bob')
+    p4.sayName()    //成功打印Bob
+
+</script>
+</body>
+</html>

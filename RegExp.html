@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RegExp</title>
+</head>
+<body>
+<script>
+/*
+正则表达式：
+*   正则表达式用于定义一些字符串的规则
+*   计算机可以根据正则表达式，来检查一个字符串是否符合规则
+*   或者将字符串符合规则的内容提取出来
+*   语法：
+*   var reg = new RegExp("正则表达式","匹配模式")
+*       正则表达式：如何匹配字符串
+*       匹配模式：  i=>ignore case； g=>global；m=>多行，不大清楚
+*
+*   同样也可以使用字面量来创建正则表达式
+*   语法：
+*   var reg = /正则表达式/匹配模式
+* */
+
+//Reg相关语法：
+//  1. '|'  表 或 ,检索较少时可用；内容较多时就用[],[]内有的就在查的范围内
+    reg1 = /A|B/     //有 A 或 B
+    reg2 = /[abcde]/
+    reg3 = /[a-z]/i
+    str = 'Alice'
+    console.log(reg1.test(str),reg2.test(str),reg3.test(str))   //true true true
+    //   字符串中是否有 abc，adc或aec
+    reg4 = /a[bde]c/
+
+//  2. '^'   表示 除了这个内容，还有没有别的；有就返回true，没用就false
+    reg5 = /[^abc]/  //除了a\b和c以外还有别的，有就true，没有就false
+    console.log(reg5.test('abaabc')) //false
+
+//  3. 量词
+//      -{n}    刚好出现n次；找到了就行
+//      -{m,n}  出现m-n次，不能多不能少
+//      -{n,}   至少出现n次
+//      -{n*}   出现0次或多次,相当于{0,}
+//      -{n+}   出现至少一次,相当于{1,}
+//      -{n?}   出现0次或1次,相当于{0,1}
+
+    reg6 = /a{5}c/    //aaaaa  是否存在,5个以上的a也没问题
+    reg7 = /ab{3}/    //abbb  是否存在，a后3个以上b也对
+    reg8 = /ab{1-3}/   //a后只能有1-3个b
+    console.log(reg6.test('baaaaac'))   //true
+    console.log(reg6.test('aaaaaaac'))   //true
+    console.log(reg7.test('ababab'))    //false
+    console.log(reg7.test('abbbbbb'))   //true
+    console.log(reg8.test('abbbbbb'))   //false
+
+
+//  4. 字符串开头结尾
+//      -.      '.'表示单个字符，除换行和行结束符
+//      -^n     n开头
+//      -{n$}   n结尾,
+//      -?=n    其后紧跟n
+//      -?!=n   其后没紧跟n
+    reg9 = /^a/
+    console.log(reg9.test('abcdefg'))       //t
+    console.log(reg9.test('xyzabcdefg'))    //f
+    reg10 = /^a$/   //a开始，a立即结束，这么说来str='a'
+    console.log(reg10.test('a'))        //t
+    console.log(reg10.test('aaa'))      //f
+
+    reg11 = /^a|a$/         //a开头或a结尾
+    console.log(reg11.test('a'))        //t
+    console.log(reg11.test('aaa'))      //t
+    console.log(reg11.test('baa'))      //t
+    //a开头且b结尾
+    reg12 = /^a.*b$/   //逻辑是这样，^a 表 a开头，然后  .*  表示一个或多个单个字符，b$ 表 b结尾
+    console.log(reg12.test('adethasdfb'))   //true
+//  a开头且b结尾的网上的正则表达式
+    reg13 = /^a.*?b$/   //区别在多了个  ?   ,感觉没意义，因为  * 就表示了0个或多个啊
+    console.log(reg13.test('adethasdfb'))   //true
+
+
+
+//  1. test(str)  检查一个字符串是否符合正则表达式规则，返回true或false
+    var reg = new RegExp("a") //找有没有 a
+    var str = 'nice to meet you,Alice.'
+    console.log(reg.test(str))  //false
+
+    reg = /a/i //不区分大小写找 a
+    console.log(reg.test(str))  //true
+
+
+
+//  2. exec(str)    检索字符串中是否有str的匹配，
+//      有就返回检索到的内容，用Array返回，内部属性还有检索到的起始下标；没有就返回null
+    reg6 = /world/
+    str = 'hello world'
+    res = reg6.exec(str)
+    console.log(res, typeof res,Array.isArray(res)) //返回的是object，是Array，属性有:
+    // 0:world; groups:indefined; index:6; input:"hello world"; length:1;  __proto__:Arrary(0)
+    res = reg6.exec('I\'m Alice')
+    console.log(res, typeof res)    //null "object"
+
+//  3. compile()
+
+
+
+//和字符相关的方法
+//  4. split()  方法可以传一个正则表达式为参数，这样能根据正则表达式进行拆分
+//      下面的str，我希望从字母处分开；常规方法只能写死，用某一字符来拆，显然做不到要求.
+//      这里的reg不设置全局，也会全局匹配
+    str = '1a2b3c4d5e6f7g8H9I'
+    res = str.split(/[A-z]/)
+    console.log(res)    //(10) ["1", "2", "3", "4", "5", "6", "7", "8", "9", ""]
+
+
+//  5. search()  搜索字符串中是否有指定内容；存在的话返回第一次出现的索引；不在返回-1
+//      可以接受一个reg做参数，来进行检索,比使用字符串灵活，我可以搜多个可能
+//      这里即使reg设置全局，也没用，找到第一个符合条件的依然会停止检索
+    str = "hello abc hello adc and afc"
+    res = str.search(/a[a-z]c/i)    //查询是否有  a*c  格式，忽略大小写
+    console.log(res)    //6,就是第一次出现的下标
+
+
+//   6. match()   可以根据reg，从字符串中提取出符合条件的内容
+//      默认情况下，match找到第一个就停止；可以通过reg匹配全局，查询到的结果用数组返回
+    str = '1a2b3c4d5e6f7g8H9I'
+    res = str.match(/[a-z]/ig)
+    console.log(res)    //(9) ["a", "b", "c", "d", "e", "f", "g", "H", "I"]
+
+
+//   7. replace(str, new_str)     默认只会替换第一个
+//      可以接受一个正则表达式，设置全局来替换全局满足条件的字串
+    str = '1a2b3c4d5e6f7g8H9I'  //删除字母
+    res = str.replace(/[A-z]/g,'')
+    console.log(res)    //123456789
+
+
+</script>
+
+</body>
+</html>

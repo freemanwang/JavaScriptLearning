@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSONP</title>
+</head>
+<body>
+<div id="d1"></div>
+<script>
+    var d = document.getElementById('d1')
+    function someFn(jsonstr) {
+        for(let i=0; i<jsonstr.length; i++){
+            let p = document.createElement('p')
+            p.innerHTML = jsonstr[i].title
+            d.appendChild(p)
+        }
+    }
+</script>
+<script src="http://localhost/USTCWebSecurity/JSONP.php?callback=someFn"></script>
+</body>
+</html>

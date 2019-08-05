@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    /*
+    * JS中共有2中作用域
+    *   1.全局作用域
+    *       -直接编写在script标签内的JS代码，都在全局作用域
+    *       -全局作用域在页面打开时创建，在页面关闭时销毁
+    *       -在全局作用域中有一个全局对象window
+    *           它代表的是一个浏览器的窗口，它由浏览器创建我们可以直接使用
+    *       -在全局作用域中：
+    *           创建的变量都会作为window对象的属性保存
+    *           创建的函数都会作为window对象的方法保存
+    *       -全局作用域中的变量都是全局变量，在页面任意位置都可访问
+    *
+    *    2.函数作用域
+    *       -调用函数时，创建函数作用域；函数执行完后，函数作用域销毁
+    *       -每调用一次函数就会创建一个新的函数作用域，它们相互独立
+    *       -函数作用域中可以访问全局作用域的变量，反之不行
+    *       -当在函数作用域内操作一个变量时，它会先在自身作用域寻找，找得到就
+    *         直接使用；找不到就会向上级作用域查找，一直找到全局作用域，如果依然
+    *         找不到，那就报错 ReferenceError
+    *       -在函数中，要访问重名的全局变量可以使用window对象
+    * */
+
+
+    /*
+    当前直接在页面里的所有操作，都是在window对象的作用域内，
+    或者说，都是window对象的属性或方法
+    所以才说，对象内的函数叫方法，除了名称外和函数没区别
+    * */
+    age = 123
+    console.log(window) //Window对象，里面有age属性
+
+//    var 声明变量的作用
+//    区别很明显，使用var 创建的变量 a 在所有代码执行前被声明，解析器逻辑如此
+//    哪怕在赋值前被引用，变量也是存在的，只是因为尚未赋值所以值是undefined；
+//    而未使用var声明的 b ，解析器不会提前声明，因此引用时会报错
+
+    console.log('a='+a) //a=undefined
+   // console.log('b='+b) //报错，ReferenceError: b is not defined
+    var a = 0
+    b = 10
+
+    //函数作用域也有提前声明的特性
+    //下面的函数运行，打印出的 a 就是 undefined
+    function func() {
+        console.log('a='+a)
+        var a = 0
+        console.log('b='+b)
+    }
+    func()  //a=undefined   b=10
+
+//    定义形参就相当于在函数作用域中声明了变量
+    function func2(d){
+        console.log('d='+d)
+    }
+    func2() //d=undefined
+
+//    解析器每次调用函数，都会向函数内部传递一个隐含的参数 this，
+//    this是一个对象，它指向的是函数执行的上下文对象（并不一定是window）
+    function fun3() {
+        console.log(this)
+    }
+    var obj = {
+        age:11,
+        sayName:fun3
+    }
+    //奇怪的是我这里，下面2个打印的都是window
+    fun3()  //window
+    obj.sayName()   //obj
+
+
+//    var 和 let
+//    var声明的变量不具备块作用域{}特性，而let声明的变量只会在块作用域{}内有效
+    {
+        var var0 = 2
+        let let0 = 3
+    }
+    // console.log(var0)   //这里打印出2
+    // console.log(let0)   //这里报错，let0未定义
+</script>
+
+</body>
+</html>

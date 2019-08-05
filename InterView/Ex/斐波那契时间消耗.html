@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试2种方式求斐波那契消耗时间</title>
+</head>
+<body>
+<script>
+    function fibNth(n) {
+        if (n <= 0){
+            return 0
+        }
+        if (n == 1){
+            return 1
+        }
+        return fibNth(n-1)+fibNth(n-2)
+    }
+
+    function fibNth2(n) {
+        if (n <= 0){
+            return 0
+        }
+        if (n == 1){
+            return 1
+        }
+        fib1 = 1
+        fib2 = 0
+        fibn = 0
+        for (let i=2; i<=n; ++i){
+            fibn = fib1 + fib2
+            fib2 = fib1
+            fib1 = fibn
+        }
+        return fibn
+    }
+    //PS：第一种方法极易卡住，除非比较小，比如30，40；40就1K+ms了，到50就转好一会了
+    console.time('f1')
+    console.log(fibNth(50))//148467.083984375ms
+    console.timeEnd('f1')   //就是2分半啊
+    console.time('f2')
+    console.log(fibNth2(100))
+    console.timeEnd('f2')
+
+
+
+</script>
+</body>
+</html>

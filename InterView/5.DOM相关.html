@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ex</title>
+</head>
+<body>
+<!--<div style="z-index: 10;position: absolute;left: 0;top: 0">-->
+    <!--<img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=4169578719,463016118&fm=85&app=63&f=JPEG?w=121&h=75&s=BE486586371321DAC8DD4C810300E0C3" alt="" style="z-index: 1">-->
+<!--</div>-->
+<!--<div style="z-index: 1;position: absolute;left: 0;top: 0">-->
+    <!--<img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2106663336,1971166339&fm=58&bpow=500&bpoh=361" alt="" style="z-index: 100">-->
+<!--</div>-->
+<script>
+    //1.获取2019-06-10格式的日期
+    // var dt = new Date(2019,5,9,12,30,30)
+    // console.log(dt.getFullYear())
+    // console.log(dt.getMonth())  //月份是0-11，就它和day有0
+    // console.log(dt.getDay())    //周几，0-6表周日-周六，就它和Month有0
+    // console.log(dt.getDate())
+    // console.log(dt.getHours())
+    // console.log(dt.getUTCHours())
+    // console.log(dt.getMinutes())
+    // console.log(dt.getSeconds())
+    function getFormedDate(dt) {
+        if (!dt){
+            dt = new Date()
+        }
+        let year = dt.getFullYear()
+        let month = dt.getMonth() + 1
+        let date = dt.getDate()
+        if (month < 10){
+            month = "0"+month
+        }
+        if (date < 10) {
+            date = '0' + date
+        }
+        return year+'-'+month+'-'+date
+    }
+    alert(getFormedDate())
+
+//    2.获取随机数，要求长度一致的字符串格式
+//    获取多少个随机数以及小数点后多长由参数num和len决定
+//    这是我的答案
+    function getRandom(num,len){
+        arr = []
+        for (i=0; i<num; i++){
+            str = Math.random().toString()
+            // console.log(typeof str)
+            if (str.length >= len){
+                tmp = str.substr(0,len+2)
+                // console.log(typeof tmp,tmp.length)
+                arr.push(tmp)
+            }
+        }
+        // alert(arr.length)
+        document.write("下面是生成的小数点后"+len+"位随机数" +num+ "个：+<br>")
+        for (t of arr){
+            // alert(arr[t])
+            document.write(t+'<br>')
+            console.log(t,typeof t)
+        }
+    }
+    getRandom(20,8)
+
+    //讲师的解法
+    function getRan(){
+        let num = Math.random()
+        num += '0000000000'   //后加10个0
+        num = num.slice(0,10)
+        return num
+    }
+
+
+
+
+
+
+//    3.写一个能遍历对象和数组的通用forEach函数
+//    答案
+    function forEach(obj) {
+        let key
+        if (obj instanceof Array){
+            obj.forEach(function (curVal, index) {
+                fn(index, curVal)
+            })
+        } else {
+            for (key in obj){
+                fn(key, obj[key])
+            }
+        }
+        function fn(index, value) {
+            console.log('obj['+key+'] : '+value)
+        }
+    }
+
+
+
+
+    //生成一个原型链
+    function Person(name) {
+        this.name = name
+        this.sayName = function () {
+            console.log('I am '+this.name)
+        }
+    }
+    function Student(age) {
+        this.age = age
+        this.sayAge = function () {
+            console.log('I am '+this.age+' years old.')
+        }
+    }
+    Student.prototype = new Person()
+    var obj = new Student(12)
+    obj.sayAge()
+    obj.sayName()
+    //for in 会遍历到从父类继承来的属性和方法
+    for (key in obj){
+        console.log(key, obj[key])
+    }
+    console.log(obj.__proto__)
+
+    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+    //希望屏蔽掉从原型继承来的属性和方法，这样做
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            console.log(key,obj[key])
+        }
+    }
+
+    forEach(obj)
+
+    // Object.keys(obj).forEach(function (curVal, index, obj) {
+    //     console.log(index,curVal,obj)
+    // })
+
+
+
+
+    
+</script>
+</body>
+</html>

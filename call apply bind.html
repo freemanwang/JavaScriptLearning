@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function fn1(name) {
+        console.log(name)
+        console.log(this.age)
+        console.log("this对象为：")
+        console.log(this)
+        console.log('------------')
+    }
+    fn1()
+    fn1.call({age:20})
+    fn1.apply({age: 30})
+
+    var fn2 = function (){
+        console.log(name)
+        console.log(this.age)
+        console.log("this对象为：")
+        console.log(this)
+        console.log('------------')
+    }.bind({age:50})
+    //注意 bind() 只能在定义函数表达式上被调用，如上例，函数表达式就是 var fn = function (){} 这样的式子
+    // 不能在函数声明上调用，直白的说就是 function fn(){}.bind() 是不行的
+
+    fn2()
+    console.log("用call调用被bind的函数")
+    fn2.call({age:30})  //打印出来 age=30，call并不能改变bind的对象
+
+
+
+</script>
+
+</body>
+</html>

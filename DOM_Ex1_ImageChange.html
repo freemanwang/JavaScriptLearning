@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ex1</title>
+    <style>
+        img{
+            width: 300px;
+            height: 300px;
+            overflow: hidden;
+            border: 1px dot-dash gray;
+        }
+        div{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="content">
+
+    <img src="img/img1.jpg" alt=""><br>
+    <p id="imgName">Now: img1.jpg</p>
+    <input type="button" value="Prev" id="pre">
+    <input type="button" value="Next" id="next">
+</div>
+<script>
+    var pre = document.getElementById('pre')
+    var next = document.getElementById('next')
+    var img = document.getElementsByTagName('img')[0]
+    var p = document.getElementById("imgName")
+
+    function getIndexNum(){
+        reg = /\w*img\d/g
+        path = img.src
+        index = path.search(reg) + 3
+        // console.log(index)
+        indexNum = Number.parseInt(path.charAt(index))
+        return indexNum
+    }
+    function getFileName(){
+        return img.src.substring(img.src.lastIndexOf('/')+1)
+    }
+    next.onclick = function () {
+        indexNum = getIndexNum()
+        preFileName = getFileName()
+        // str = path.substr(index,5)
+        indexNum = (indexNum+1)%5
+        if (indexNum==0) {
+            indexNum++
+        }
+        // console.log(indexNum)
+        fileName = 'img'+indexNum+'.jpg'
+        img.src = 'img/'+fileName
+        p.innerHTML = "Pre: "+preFileName+" | Now: "+fileName
+    }
+    pre.onclick = function () {
+        indexNum = getIndexNum()
+        preFileName = getFileName()
+        // console.log(indexNum,typeof indexNum)
+        indexNum = (indexNum-1)%5
+        if (indexNum==0)
+            indexNum=4
+        // console.log(indexNum)
+        fileName = 'img'+indexNum+'.jpg'
+        img.src = 'img/'+fileName
+        p.innerHTML = "Pre: "+preFileName+" | Now: "+fileName
+    }
+
+//    上面这样切挺麻烦的,可以用数组储存img的路径,然后通过JS切换src为arr元素值
+//    即避免了src写死,又方便后续添加新图片
+    address = ['img1.jpg','img2.jpg','img3.jpg','img4.jpg']
+    function getIndex(){
+
+    }
+    pre.onclick =function () {
+        index =
+        img.src =
+    }
+
+
+</script>
+</body>
+</html>

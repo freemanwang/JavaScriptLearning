@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>作用域习题</title>
+</head>
+<body>
+<h3>题目，生成10个a标签，然后点击它会alert编号</h3>
+<script>
+    var i
+    for(i=0;i<10;i++){
+        (function (i) {//用一个function把下面内容包起来，利用闭包，给每个a一个作用域，作用域内的i是执行该次for循环时的i值
+            var a = document.createElement('a')
+            a.innerHTML = i+'<br>'
+            a.addEventListener('click',function (e) {
+                e.preventDefault()
+                alert(i)    //i是本次for循环的i值，执行时去function作用域找i的值，本作用域内的i就是执行时的i，不是for循环里已经变成10的i
+            })
+            document.body.appendChild(a)
+        })(i)  //这里函数声明后跟(i)，告诉解析器立即用i做参数执行函数，这 样才能生成闭包。否则不执行的函数，和下段错误代码一样是咸鱼
+    //    注意，函数声明是包裹在()中的，这个()起到的作用是把函数声明变成一个函数表达式，只有函数表达式才能后跟()让解析器立即执行函数。如果不包裹，不能这样调用
+    }
+//    上面函数的好处在于，每次定义后立即执行函数，addEventListener添加的alert里的i都是当时i的值，意思是不会被污染从所有的a标签点击时弹出的都是9.因为如果不立即执行，那么所有的函数只停留在声明而非执行，那么真正的点击事件触发时，会在匿名函数function中寻找i，但它没有i，那么就会去父作用域找；父作用域的i经过循环后的i已经是9了，那么点任何序号的a，它弹出的都会是9
+    document.write("<hr>")
+    //下面是错误做法，就会全弹出10，因为for结束时i是10，也可以说，click事件发生时，在for循环的作用域内找到的i就是10
+    //对比2个的差异，可以帮助理解作用域和闭包
+    var j
+    for(j=0;j<10;j++){
+            var a = document.createElement('a')
+            a.innerHTML = j + '<br>'
+            a.addEventListener('click', function (e) {
+                e.preventDefault()
+                alert(j)    //执行时要去父作用域获取值
+            })
+        document.body.appendChild(a)
+    }
+
+
+
+</script>
+</body>
+</html>

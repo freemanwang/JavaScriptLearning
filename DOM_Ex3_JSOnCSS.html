@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS_Set_CSS</title>
+    <style>
+        #d1{
+            width: 200px;
+            height: 200px!important;
+            background-color: red;
+            border-top: 20px solid yellow;
+        }
+    </style>
+</head>
+<body>
+<div id="d1">
+</div>
+<input type="button" value="GetInlineWidth" id="b1">
+<input type="button" value="GetCurrentWidth" id="b2">
+<script>
+    //通过JS修改元素的CSS
+//    语法:  元素.style.样式名 = 样式值
+//        PS: 如果CSS样式中含有 '-',需将其改为驼峰命名法,见下例
+//        PPS:JS修改的样式会变成元素的内联样式,因为优先级最高所以会覆盖
+//        PPPS:但如果在样式表中写了 !important ,这会是最高优先级,JS修改都会失效
+
+    //此时JS修改的width属性,哪怕已经加入内联样式表了,也无法生效;被 !important 无效化了
+    var div = document.getElementById('d1')
+    div.onclick = function (){
+        d1.style.width = '300px'
+        d1.style.height = '500px'
+        d1.style.backgroundColor = 'blue'
+        d1.style.borderTop = '30px solid red'
+    }
+
+//    读取CSS样式值
+//    语法:   value =  元素.style.样式名
+//    PS:这样读取的是内联样式表;无法读样式表中的样式;可以理解,读的是元素的style属性里的东西嘛
+
+//  btn在页面刚刷新时点击,读不到宽度;当JS修改width后再点才能读到
+    var btn1 = document.getElementById('b1')
+    btn1.onclick = function () {
+        var width = div.style.width
+        console.log('div\'s width is :' + width)
+    }
+
+//    想用JS读取当前元素显示的样式(非样式表,指当前显示),用window.getComputedStyle(obj)方法
+//        如果获取的样式没设置,会读取真实的值,而不是默认值
+//    语法:  style = window.getComputedStyle(obj)    获取包含当前的所有的样式的对象
+//           样式值 = style.样式名
+
+//    也可以写在一句里:
+//    语法:  样式值 = window.getComputedStyle(obj).样式名
+
+    var btn2 = document.getElementById('b2')
+    btn2.onclick = function () {
+        var style = window.getComputedStyle(div)
+        console.log('div\'s width is :' + style.width)
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax</title>
+</head>
+<body>
+<script>
+
+    /*
+    * XMLHttpRequest
+    *
+    * 状态变化：
+    *   readyState:（实际用关注的就是4）
+    *       -0：未初始化，还没调用send()方法
+    *       -1：载入，已调用send()方法，正在发生请求
+    *       -2：载入完成，send()方法执行完成，已接受到全部响应内容
+    *       -3：交互，正在解析响应内容
+    *       -4：完成，解析完响应内容，内容可以使用了
+    *
+    *   status：（）
+    *       -100：正常接收到请求
+    *           -100：通知客户端它的部分请求已经被服务器接收，且仍未被拒绝。客户端应当继续发送请求的剩余部分
+    *       -2XX：表成功处理请求，比如200
+    *           -200：“OK”，请求成功
+    *       -3XX：需要重定向，浏览器会进行操作
+    *           -301：资源被永久转移到其他URL，返回信息包括新的url，浏览器会自动定位到新的url，且以后新的请求会使用该url代替
+    *           -302：临时移动URL，本次重定向，以后依然用原url
+    *           -303：对应当前请求的响应可以在另一个 URI 上被找到，而且客户端应当采用 GET 的方式访问那个资源。
+    *       -4XX：客户端请求错误
+    *           -400：请求无法被解读，Bad Request
+    *           -401：请求需要用户的身份验证
+    *           -403：服务端拒绝执行此请求
+    *           -404：未找到页面/文件
+    *           -405：请求的方法被禁止
+    *       -5XX：服务端错误
+    *           -500：服务器错误，无法完成请求
+    *           -501：服务器不支持此请求，无法完成
+    *           -502：
+    *           -503：服务器因超载或维护，暂时无法处理请求，演示的长度在Retry-After的头信息中
+    *
+    *
+    * */
+    var xhr = new XMLHttpRequest()
+    // xhr.open('GET','http://localhost/USTCWebSecurity/Referer.php',true)
+    // xhr.open('GET','http://localhost/USTCWebSecurity/Referer.php',false)
+    xhr.open('POST','http://localhost/USTCWebSecurity/Referer.php',true)
+    // xhr.open('POST','http://localhost/USTCWebSecurity/Referer.php',false)
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4){
+            if (xhr.status == 200){
+                console.log(xhr.responseText)
+                // document.write()
+                obj = JSON.parse(xhr.responseText)
+                console.log(obj)
+                document.write(obj['referer']+'<br>')
+                document.write(obj['staticMes']+'<br>')
+                document.write(obj['dynamicMes']+'<br>')
+            }
+        }
+    }
+    xhr.send()
+    // alert(1)
+    xhr.open('http:www.baidu.com',true)
+    xhr.onreadystatechange = function () {
+        if (xhr.readystate == 4){
+            if (xhr.status == 200){
+
+            }
+        }
+    }
+</script>
+<h3>HELLO EVERY MIFAN!</h3>
+</body>
+</html>

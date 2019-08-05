@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // var time = new Date();
+    document.cookie="userID=1";
+    document.cookie="username=Alice";
+    document.cookie = "password=root";
+    function getCookieByReg(name)
+    {
+        var arr;
+        // var reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+        var reg=new RegExp(".*"+name+"=([^;]*)(;|$)");
+        return document.cookie.match(reg)
+        // if(arr=document.cookie.match(reg))
+        //     return (arr);
+        // else
+        //     return null;
+    }
+    // alert(getCookieByReg("username").length + "  " + getCookieByReg("username")[0]
+    //     + " | " + getCookieByReg("username")[1] + " | " + getCookieByReg("username")[2]
+    //     + " | " + getCookieByReg("username")[3]);
+
+
+
+    //获取cookie字符串
+    var strCookie=document.cookie;
+    //如我们所知，document.cookie返回的是所有的cookie
+    document.write("document.cookie获得的内容是：" + strCookie+"<br>");
+    //查看它用什么类型返回的，经验证，用字符串返回的
+    document.write("document.cookie获得的内容的类型是："+ typeof strCookie+"<br>");
+
+    // alert(getCookie("username"));
+    //将多cookie切割为多个名/值对
+    var arrCookie=strCookie.split(";");
+    document.write("split()方法操作后结果为：");
+    for (t of arrCookie)
+        document.write(t + '  |  ')
+    document.write("split()方法操作后类型为：" + typeof arrCookie);
+
+    //遍历cookie数组，处理每个cookie对
+    for(var i=0;i<arrCookie.length;i++){
+        var arr=arrCookie[i].split("=");
+        //找到名称为userId的cookie，并返回它的值
+        if("userID"==arr[0]){
+            userID=arr[1];
+            break;
+        }
+    }
+    document.write("<br>" + arrCookie[1]);
+    document.write("<br>" + userID + typeof userID + "<br>");
+    function getCookieByStringMethod(cookieName)
+    {
+        var strCookie = document.cookie;
+        //start为cookie起始下标，不存在则start=-1；
+        var start = strCookie.indexOf(cookieName);
+        if (start < 0){
+            return null;
+        }
+        //从起始处往后的第一个";"为该cookie的结束，记下结束下标
+        var end = strCookie.indexOf(";", start);
+        //start往后cookieName.length + 1（=号）为cookie值的开始下标
+        start += cookieName.length+1;
+        //cookie值的长度为结束下标-起始下标，即end-start
+        var len = end - start;
+        var cookie = strCookie.substr(start, len);
+        return cookie;
+    }
+
+
+    document.write("查找cookie中username项的值: username = " + getCookieByStringMethod("username")+ "<br>");
+    document.write("查找cookie中users项的值: users = " + getCookieByStringMethod("users"));
+
+
+</script>
+</body>
+</html>
